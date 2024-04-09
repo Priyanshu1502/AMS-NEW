@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Data from "../assets/Data";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,10 +9,12 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import Skeleton from "@mui/material/Skeleton";
-import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
+import SendIcon from "@mui/icons-material/Send";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
+import Snackbar from "@mui/material/Snackbar";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
 
 const PostCard = () => {
   const drawerBleeding = 56;
@@ -33,6 +35,36 @@ const PostCard = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const showComments = () => setOpenDrawer(!openDrawer);
+
+  const [isSaved, setIsSaved] = useState(false);
+  const onSave = () => {
+    setIsSaved(!isSaved);
+  };
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const showSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const closeSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={closeSnackbar}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   return (
     <div>
@@ -99,15 +131,23 @@ const PostCard = () => {
           {/* User actions: like, comments etc */}
           <div className="w-full h-auto flex item-center justify-between ">
             <div className="flex flex-row item-center gap-x-4 justify-between">
+              {/* like button */}
               <div>
                 {isLiked ? (
-                  <FavoriteBorderIcon onClick={onLike} />
+                  <FavoriteIcon sx={{ cursor: "pointer" }} onClick={onLike} />
                 ) : (
-                  <FavoriteIcon onClick={onLike} />
+                  <FavoriteBorderIcon
+                    sx={{ cursor: "pointer" }}
+                    onClick={onLike}
+                  />
                 )}
               </div>
+              {/* comment */}
               <div>
-                <CommentIcon onClick={showComments} />
+                <CommentIcon
+                  sx={{ cursor: "pointer" }}
+                  onClick={showComments}
+                />
                 {openDrawer ? (
                   <SwipeableDrawer
                     anchor="bottom"
@@ -128,10 +168,58 @@ const PostCard = () => {
                   <></>
                 )}
               </div>
+              <div>
+                <SendIcon sx={{ cursor: "pointer" }} />
+              </div>
+            </div>
+            <div>
+              {isSaved ? (
+                <BookmarkAddedIcon
+                  sx={{ cursor: "pointer" }}
+                  onClick={onSave}
+                />
+              ) : (
+                <BookmarkBorderIcon
+                  sx={{ cursor: "pointer" }}
+                  onClick={onSave}
+                />
+              )}
+              <Snackbar
+                open={isSaved}
+                autoHideDuration={2000}
+                onClose={closeSnackbar}
+                message="Post Saved!"
+                action={action}
+              />
             </div>
           </div>
+          {/* like count */}
+          <div className="w-auto m">{post.likeCount} likes</div>
+          {/* captions section */}
+
           {/*captions with username*/}
-          {/* comments */}
+          <div className="w-full h-auto flex items-center gap-x-1">
+            <div className="w-full h-auto text-sm text-grey-200 font-thin">
+              <NavLink to="/" className="font-medium text-sm me-2">
+                {post.username}
+              </NavLink>
+              {post.caption}
+              <NavLink to="/" className="font-medium text-sm me-2">
+                ...more
+              </NavLink>
+            </div>
+          </div>
+          {/* comments count */}
+          <NavLink to="/" className="text-grey-400 font-normal my-2">
+            View all {post.commentCount} comments
+          </NavLink>
+          <div className="w-full h-auto flex items-center justify-between border-b border-b-grey-500">
+            <input
+              type="text"
+              placeholder="Add a comment..."
+              className="w-[90%] h-auto bg-transparent border-none outline-none focus:outline-none text-sm text-grey-400 py-3"
+            />
+          </div>
         </div>
       ))}
     </div>

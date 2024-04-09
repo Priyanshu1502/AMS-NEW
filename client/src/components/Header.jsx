@@ -12,8 +12,8 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-[#34ebe1] ">
-      <nav className=" flex justify-between items-center w-[92%] mx-auto ">
+    <div className="bg-white">
+      <nav className=" flex justify-between items-center w-[92%] mx-auto">
         <div className="">
           <img src="/icon.ico" alt="logo" className="h-12"></img>
         </div>
