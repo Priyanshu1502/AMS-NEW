@@ -5,6 +5,7 @@ import Connections from "./pages/Connections";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
+import Chat from "./pages/Chat/Chat";
 // import Project from "./pages/Projects"
 import Header from "./components/Header";
 import Gate from "./components/Gate";
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </BrowserRouter>
   );
