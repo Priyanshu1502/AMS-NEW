@@ -5,9 +5,8 @@ import asyncHandler from '../utils/asyncHandler.js'
 
 const UserAuthentication = asyncHandler( async (req,_,next)=> {
 
-    try {
         const userAccessToken = req.cookies?.userLoginDetails || req.header("Authorization")?.replace("Bearer ", "")
-    
+        
         if (!userAccessToken) {
             throw new apiError(401, "User is Logged Out!")
         }
@@ -16,16 +15,13 @@ const UserAuthentication = asyncHandler( async (req,_,next)=> {
     
         const userDetails = await UserDB.findById(isTokenValid._id).select('-password -refreshToken')
     
-        if (!user) {
+        // console.log(userDetails)
+        if (!userDetails) {
             throw new apiError(401, "Invalid User Tokens!")
         }
-    
         req.user = userDetails
-    
+
         next()
-    } catch (error) {
-        throw new apiError(401,"Invalid User Details!",{error:error?.message})
-    }
 })
 
-return UserAuthentication
+export default UserAuthentication

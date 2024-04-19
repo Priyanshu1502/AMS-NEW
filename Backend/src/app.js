@@ -11,14 +11,14 @@ app.use(cors({
 
 
 app.use(cookieParser())
-app.use(express.json({limit: "16kb"}))
-app.use(express.urlencoded({extended:true, limit:"16kb"}))
+app.use(express.json({ limit: "16kb" }))
+app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(express.static('public'))
 
 
-import userRegister from './routes/users.route.js'
+import userRoutes from './routes/users.route.js'
 
 
-app.use('api/v1/users',userRegister)
+app.use('/api/v1/users', userRoutes)
 
-export {app}
+export { app }

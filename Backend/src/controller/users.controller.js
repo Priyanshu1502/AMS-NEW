@@ -7,7 +7,7 @@ const UserTokens = async function (userId) {
 
     try {
         const userDetail = await UserDB.findById(userId)
-
+        // console.log(userId)
         const UserAccessToken = userDetail.generateAccessToken()
         const UserRefreshToken = userDetail.generateRefreshToken()
 
@@ -16,33 +16,43 @@ const UserTokens = async function (userId) {
         await userDetail.save({ validateBeforeSave: false })
 
         return { UserAccessToken, UserRefreshToken }
+
     } catch (error) {
-        throw new apiError(500, "Something went wrong while generating Tokens!", { error: error.message });
+        throw new apiError(500, "Something went wrong while generating Tokens!");
     }
 }
 
 const userRegisteration = asyncHandler(
     async (req, res) => {
         const { username, email, password, fullName, currentPassword } = req.body
+        // console.log(req.body)
 
-        if (currentPassword !== password) {
-            throw new apiError(400, "Password and Current Password are different!")
-        }
-        if ([username, email, password, fullName].some(field => {
+        if ([username, email, password, fullName, currentPassword].some((field) => {
             field.trim() === ""
         })) {
             throw new apiError(404, "All the Fields are required!")
         }
 
+        if (password !== currentPassword) {
+            throw new apiError(400, "Password and Current Password are different!")
+        }
+
+        const isUserValid = await UserDB.findOne({ $or: [{ username }, { email }] })
+
+        if (isUserValid) {
+            throw new apiError(409, "Email and Username already Exist!")
+        }
+
         const user = await UserDB.create({
             username,
             email,
-            password,
-            fullName
+            fullName,
+            password
         })
 
-        const userDetail = await UserDB.findById(user._id)
-        res
+        const userDetail = await UserDB.findById(user._id).select('-password')
+
+        return res
             .status(201)
             .json(
                 new apiResponse(
@@ -66,6 +76,7 @@ const userLogIn = asyncHandler(
 
         const isUserExist = await UserDB.findOne({ $or: [{ username }, { email }] })
 
+        // console.log(isUserExist)
         if (!isUserExist) {
             throw new apiError(404, "Invalid User Credentials!")
         }
@@ -75,7 +86,8 @@ const userLogIn = asyncHandler(
             throw new apiError(401, "Password is Incorrect!")
         }
 
-        const { UserAccessToken, UserRefreshToken } = UserTokens(isUserExist._id)
+        const { UserAccessToken, UserRefreshToken } = await UserTokens(isUserExist._id)
+
         if (!UserAccessToken) {
             throw new apiError(500, "Something wents wrong in Server!")
         }
@@ -108,43 +120,64 @@ const userLogIn = asyncHandler(
 const userLogOut = asyncHandler(
     async (req, res) => {
 
-       await UserDB.findByIdAndUpdate(req.user._id,
-        {
-            $unset:{
-                refreshToken: 1
-            }
-        },
-        {
-            new : true
-        }
-    )
-
-
-
-        const options = {
-            httpOnly: true,
-            secure: true
-        }
-        res
-            .status(200)
-            .clearCookie('userLoginDetails', options)
-            .clearCookie('userRefreshToken', options)
-            .json(
-                new apiResponse(
-                    200,
-                    "User is Logged Out Successfully.",
-                    {}
-                )
+        try {
+            await UserDB.findByIdAndUpdate(req.user._id,
+                {
+                    $unset: {
+                        refreshToken: 1
+                    }
+                },
+                {
+                    new: true
+                }
             )
+
+
+
+            const options = {
+                httpOnly: true,
+                secure: true
+            }
+            res
+                .status(200)
+                .clearCookie('userLoginDetails', options)
+                .clearCookie('userRefreshToken', options)
+                .json(
+                    new apiResponse(
+                        200,
+                        "User is Logged Out Successfully.",
+                        {}
+                    )
+                )
+        } catch (error) {
+            throw new apiError(401,"Invalid User Credentials!")
+        }
     })
 const userRefreshToken = asyncHandler(
     async (req, res) => {
-        
+
     })
+
+const getUserDetails = asyncHandler(
+    async (req, res) => {
+        // console.log(req.user)
+        return res
+            .status(200)
+            .json(
+                new apiResponse(
+                    200,
+                    "User fetched Successfully.",
+                    req.user
+                )
+            )
+
+    }
+)
 
 export {
     userRegisteration,
     userLogIn,
     userLogOut,
     userRefreshToken,
+    getUserDetails
 }
