@@ -81,36 +81,70 @@ const userLogIn = asyncHandler(
         }
 
         const LoggedInUser = await UserDB.findById(isUserExist._id).select('-password -refreshToken')
-        
-        const options ={
+
+        const options = {
             httpOnly: true,
             secure: true
         }
 
         res
-        .status(200)
-        .cookie('userLoginDetails', UserAccessToken, options)
-        .cookie('userRefreshToken', UserRefreshToken, options)
-        .json(
-            new apiResponse(
-                200,
-                "User Logged In Successfully.",
-                {
-                    userLoginDetails: UserAccessToken,
-                    userRefreshToken: UserRefreshToken, 
-                    LoggedInUser
-                }
+            .status(200)
+            .cookie('userLoginDetails', UserAccessToken, options)
+            .cookie('userRefreshToken', UserRefreshToken, options)
+            .json(
+                new apiResponse(
+                    200,
+                    "User Logged In Successfully.",
+                    {
+                        userLoginDetails: UserAccessToken,
+                        userRefreshToken: UserRefreshToken,
+                        LoggedInUser
+                    }
+                )
             )
-        )
     }
 )
 
-const userLogOut = asyncHandler(async (req,res)=>{
+const userLogOut = asyncHandler(
+    async (req, res) => {
 
-})
+       await UserDB.findByIdAndUpdate(req.user._id,
+        {
+            $unset:{
+                refreshToken: 1
+            }
+        },
+        {
+            new : true
+        }
+    )
 
-export { 
+
+
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+        res
+            .status(200)
+            .clearCookie('userLoginDetails', options)
+            .clearCookie('userRefreshToken', options)
+            .json(
+                new apiResponse(
+                    200,
+                    "User is Logged Out Successfully.",
+                    {}
+                )
+            )
+    })
+const userRefreshToken = asyncHandler(
+    async (req, res) => {
+        
+    })
+
+export {
     userRegisteration,
     userLogIn,
-    userLogOut
+    userLogOut,
+    userRefreshToken,
 }
