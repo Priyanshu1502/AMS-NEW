@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Notifications = () => {
   return (
-    <div className="bg-[#e3e3e3] w-full h-[100vh] flex justify-center">
+    <div className="bg-[#e3e3e3] lg:w-full md:w-full h-[100vh] flex justify-center">
       <div className="w-[98%] bg-white rounded mt-4">
         <p className="text-3xl ml-6 mt-6 border-b-2 border-grey pb-2 w-[96%]">
           Notifications
@@ -18,12 +18,12 @@ const Notifications = () => {
         <div className="m-9 border-grey border-[1px] shadow-lg p-2 rounded flex hover:bg-[#e3e3e3]">
           <img
             src="https://source.unsplash.com/random/?adventure"
-            className="rounded w-16 h-16 blur-[1px]"
+            className="rounded w-16 h-16 blur-[1px] border-[1px] border-black"
           ></img>
           <p className="ml-3 text-lg">
             This is a notification about the event #1
           </p>
-          <div className="ml-[61rem] mt-3">
+          <div className="lg:md:ml-[61rem] mt-3 sm:ml-0">
             <Dropdown>
               <MenuButton
                 slots={{ root: IconButton }}

@@ -23,8 +23,8 @@ const LeftSideBar = () => {
 
   return (
     <div>
-      <div className="flex flex-col bg-white">
-        <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col bg-white rounded">
+        <div className="flex flex-col justify-center items-center rounded">
           <img
             src="banner.jpg"
             alt="background-img"

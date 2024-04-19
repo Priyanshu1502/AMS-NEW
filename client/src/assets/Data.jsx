@@ -11,6 +11,7 @@ const instagramFeed = [
     caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     commentCount: "100",
     comment: "Hello",
+    backgroundImg: "https://source.unsplash.com/random/?food",
   },
   {
     id: 2,
