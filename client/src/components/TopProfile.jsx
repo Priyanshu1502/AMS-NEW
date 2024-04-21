@@ -53,7 +53,7 @@ const TopProfile = () => {
       {Data.map((profile) => (
         <div
           key={profile.id}
-          className="ml-52 mt-4 z-0 bg-[#e3e3e3] w-[75%] rounded-t-3xl"
+          className="ml-52 mt-4 z-0 bg-white w-[75%] pb-4 rounded-t-3xl"
         >
           {background ? (
             <img
@@ -211,6 +211,11 @@ const TopProfile = () => {
                         />
                       </FormControl>
                     </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      Education
+                    </AccordionSummary>
                   </Accordion>
                 </Stack>
               </form>
