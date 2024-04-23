@@ -1,7 +1,9 @@
 import React from "react";
 import TopProfile from "../components/TopProfile";
-import BottomProfile from "../components/BottomProfile";
+import Experience from "../components/Exprience";
 import SeePost from "../components/SeePost";
+import Skill from "../components/Skill";
+import Education from "../components/Education";
 
 const Profile = () => {
   return (
@@ -13,7 +15,13 @@ const Profile = () => {
         <SeePost />
       </div>
       <div className="bg-[#e3e3e3]">
-        <BottomProfile />
+        <Skill />
+      </div>
+      <div className="bg-[#e3e3e3]">
+        <Education />
+      </div>
+      <div className="bg-[#e3e3e3]">
+        <Experience />
       </div>
     </div>
   );

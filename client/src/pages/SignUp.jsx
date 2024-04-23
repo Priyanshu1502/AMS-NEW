@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import { NavLink } from "react-router-dom";
 
 const SignUp = () => {
+  const handleChange = {};
+
   return (
     <div className="min-h-screen py-10">
       <div className="container mx-auto ">
@@ -32,6 +34,7 @@ const SignUp = () => {
                   label="First Name"
                   variant="outlined"
                   color="success"
+                  onChange
                   sx={{
                     backgroundColor: "#fff",
                     // borderStyle: "none",
