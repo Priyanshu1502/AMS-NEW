@@ -37,10 +37,6 @@ const userSchema = new Schema({
     },
     refreshToken: {
         type: String
-    },
-    watchHistory: {
-        type: Schema.Types.ObjectId,
-        ref: "VideoDB"
     }
 },
     {

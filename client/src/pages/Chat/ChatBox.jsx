@@ -64,7 +64,7 @@ function ChatBox() {
           <div className="chatmgs">
             <div className="me">
               <p>Hii</p>
-              <p>i am fine and you?</p>
+              <p>i am fine and you Bro?</p>
               <p>Hii how are you?</p>
               <p>i am good how is your day</p>
               <p>Hii how are you?</p>
