@@ -12,15 +12,14 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white shadow-xl">
+    <div className="bg-white shadow-xl sticky top-0 z-[100]">
       <nav className=" flex justify-between items-center w-[92%] mx-auto">
         <div className="">
-          <img src="/icon.ico" alt="logo" className="h-12"></img>
+          <img src="/icon.ico" alt="logo" className="h-12" />
         </div>
         <div className="hidden sm:w-[150%] md:left-0 md:w-auto md:flex items-center px-5">
           <Navlinks />
         </div>
-
         <div className="flex items-center gap-6">
           <div className="hidden md:block">
             <Button variant="contained" color="primary">
