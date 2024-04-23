@@ -12,7 +12,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white shadow-xl">
       <nav className=" flex justify-between items-center w-[92%] mx-auto">
         <div className="">
           <img src="/icon.ico" alt="logo" className="h-12"></img>
