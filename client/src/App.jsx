@@ -9,6 +9,7 @@ import Chat from "./pages/Chat/Chat";
 // import Project from "./pages/Projects"
 import Header from "./components/Header";
 import Gate from "./components/Gate";
+import Notifications from "./pages/Notifications";
 // import Footer from "./components/Footer";
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Routes>
     </BrowserRouter>
   );

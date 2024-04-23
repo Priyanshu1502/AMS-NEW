@@ -43,7 +43,7 @@ const NavigationList = () => {
             justifyContent: "space-between",
             alignItems: "center",
             height: "4.5rem",
-            backgroundColor: "#34ebe1 ",
+            backgroundColor: "white",
             overflow: "hidden",
           }}
         >
