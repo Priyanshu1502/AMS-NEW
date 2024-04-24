@@ -35,7 +35,7 @@ const Skill = () => {
                 borderBottomLeftRadius: "1rem",
               }}
             >
-              See all Skills...
+              See all Experiences...
             </Button>
           </div>
         </div>

@@ -5,8 +5,8 @@ import Data from "../assets/ProfileData";
 const Education = () => {
   return (
     <div className=" mt-4 bg-white rounded-3xl w-[75%] ml-52 h-auto">
-      {Data.map((education) => (
-        <div key={education.id} className="mt-5">
+      {Data.map((edu) => (
+        <div key={edu.id} className="mt-5">
           <div className="ml-8 pt-6 text-3xl">Education</div>
           <div className="lg:ml-[60rem] lg:mt-[-2.3rem] pb-10 ">
             <Button
@@ -28,12 +28,12 @@ const Education = () => {
               className="w-14 h-14 rounded-full"
             ></img>
             <div className="ml-3">
-              <div className="text-lg">{education.education1}</div>
+              <div className="text-lg">{edu.education1}</div>
               <div className="text-sm">
-                {education.degree1} - {education.degreein1}
+                {edu.degree1} - {edu.degreein1}
               </div>
               <div className="text-sm text-gray-400">
-                {education.started1} - {education.Endedin1}
+                {edu.started1} - {edu.Endedin1}
               </div>
             </div>
           </div>
@@ -50,12 +50,12 @@ const Education = () => {
               className="w-14 h-14 rounded-full"
             ></img>
             <div className="ml-3">
-              <div className="text-lg">{education.education2}</div>
+              <div className="text-lg">{edu.education2}</div>
               <div className="text-sm">
-                {education.degree2} - {education.degreein2}
+                {edu.degree2} - {edu.degreein2}
               </div>
               <div className="text-sm text-gray-400">
-                {education.started2} - {education.Endedin2}
+                {edu.started2} - {edu.Endedin2}
               </div>
             </div>
           </div>

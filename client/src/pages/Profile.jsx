@@ -7,7 +7,7 @@ import Education from "../components/Education";
 
 const Profile = () => {
   return (
-    <div className="bg-white w-full flex flex-col max-h-screen">
+    <div className="bg-white lg:w-full lg:flex lg:flex-col lg:max-h-screen">
       <div className="bg-[#e3e3e3]">
         <TopProfile />
       </div>
