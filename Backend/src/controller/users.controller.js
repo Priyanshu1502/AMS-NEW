@@ -24,16 +24,16 @@ const UserTokens = async function (userId) {
 
 const userRegisteration = asyncHandler(
     async (req, res) => {
-        const { username, email, password, fullName, currentPassword } = req.body
+        const { username, email, password, fullname, confirmPassword } = req.body
         // console.log(req.body)
 
-        if ([username, email, password, fullName, currentPassword].some((field) => {
-            field.trim() === ""
+        if ([username, email, password, fullname, confirmPassword].some((field) => {
+            field.trim() === "" || undefined
         })) {
             throw new apiError(404, "All the Fields are required!")
         }
 
-        if (password !== currentPassword) {
+        if (password !== confirmPassword) {
             throw new apiError(400, "Password and Current Password are different!")
         }
 
@@ -46,7 +46,7 @@ const userRegisteration = asyncHandler(
         const user = await UserDB.create({
             username,
             email,
-            fullName,
+            fullName: fullname,
             password
         })
 
@@ -65,20 +65,20 @@ const userRegisteration = asyncHandler(
 
 const userLogIn = asyncHandler(
     async (req, res) => {
-        const { username, email, password } = req.body
+        const {email, password } = req.body
 
-        if (!(username || email) && !password) {
+        if (!email&& !password) {
             throw new apiError(
-                400,
-                "Username, email and password are required!"
+                404,
+                "email and password are required!"
             )
         }
 
-        const isUserExist = await UserDB.findOne({ $or: [{ username }, { email }] })
+        const isUserExist = await UserDB.findOne({ $or: [{ username: email }, { email }] })
 
         // console.log(isUserExist)
         if (!isUserExist) {
-            throw new apiError(404, "Invalid User Credentials!")
+            throw new apiError(400, "Invalid User Credentials!")
         }
 
         const isPasswordCorrect = await isUserExist.isPasswordCorrect(password)
@@ -432,7 +432,6 @@ export {
     userLogIn,
     userLogOut,
     UserTokenRefreshing,
-    getUserDetails,
     ChangeCurrentPassword,
     getUserDetails,
     getUserChannelDetails,
