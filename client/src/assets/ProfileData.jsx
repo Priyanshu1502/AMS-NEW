@@ -15,7 +15,6 @@ const ProfileData = [
     Experience2: "Full Stack DEveloper",
     CompanyName1: "THDC India Limited Official",
     CompanyName2: "Google",
-
     notification1: "event #1 for the alumni's",
     notification2: "event #2 for the alumni's",
     profileImg: "https://source.unsplash.com/random/?kitchen",
