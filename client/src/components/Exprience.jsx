@@ -4,11 +4,11 @@ import { Button, Divider } from "@mui/material";
 
 const BottomProfile = () => {
   return (
-    <div className=" mt-4 bg-white rounded-3xl w-[75%] ml-52 h-auto mb-6">
+    <div className=" lg:ml-52 mt-4 lg:mt-4 lg:mr-0 lg:mb-0 sm:mr-2 sm:ml-2 md:mt-4 sm:mt-4 ml-2 mr-2 z-0 bg-white lg:w-[100%] rounded-3xl lg:max-w-[72rem] sm:max-w-screen-sm">
       {Data.map((exp) => (
         <div key={exp.id} className="mt-5">
-          <div className="ml-8 pt-6 text-3xl">Experience</div>
-          <div className="lg:ml-[60rem] lg:mt-[-2.3rem] pb-10 ">
+          <div className="lg:ml-8 ml-5 pt-6 text-3xl">Experience</div>
+          <div className="lg:ml-[60rem] lg:mt-[-2.3rem] ml-52 mt-[-2.3rem] pb-10 ">
             <Button
               variant="outlined"
               sx={{
@@ -21,7 +21,7 @@ const BottomProfile = () => {
               Add Experience
             </Button>
           </div>
-          <div className="ml-8 w-[94%] flex flex-row pb-6">
+          <div className="lg:ml-8 ml-4 w-[94%] flex flex-row pb-6">
             <img
               src="/THDC.png"
               alt="logo"
@@ -48,7 +48,7 @@ const BottomProfile = () => {
               marginLeft: "2rem",
             }}
           />
-          <div className="ml-8 w-[94%] flex flex-row pb-6 mt-6">
+          <div className="lg:ml-8 w-[94%] ml-4 flex flex-row pb-6 mt-6">
             <img
               src="/google.webp"
               alt="logo"

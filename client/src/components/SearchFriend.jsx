@@ -44,7 +44,7 @@ const SearchFriend = ({ setResults }) => {
         startDecorator={<SearchIcon />}
         endDecorator={<Button>Search</Button>}
         options={friends}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value.toLowerCase())}
       ></Input>
     </div>
   );

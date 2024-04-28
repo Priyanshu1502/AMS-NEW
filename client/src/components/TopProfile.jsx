@@ -49,42 +49,44 @@ const TopProfile = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="">
       {Data.map((profile) => (
         <div
           key={profile.id}
-          className="ml-52 mt-4 z-0 bg-white w-[75%] pb-4 rounded-3xl"
+          className="lg:ml-52 mt-4 lg:mt-4 lg:mr-0 lg:mb-0 sm:mr-2 sm:mb-2 sm:ml-2 md:mt-4 sm:mt-4 ml-2 mr-2 z-0 bg-white lg:w-[100%] lg:pb-4 rounded-3xl lg:max-w-[72rem] sm:max-w-screen-sm pb-4"
         >
           {background ? (
             <img
               src={profile.backgroundImg}
               alt="background-img"
-              className="rounded-t-3xl w-[72rem] h-[20rem]"
+              className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
             ></img>
           ) : (
             <div className="">
               <img
                 src="/Simple Shiny.svg"
                 alt="background"
-                className="rounded-t-3xl w-[72rem] h-[20rem]"
+                className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
               ></img>
             </div>
           )}
-          <div className="mt-[-6rem] ml-16">
+          <div className="lg:mt-[-6rem] lg:ml-16 mt-[-4.5rem] ml-6">
             <Avatar
               sx={{
-                width: "9rem",
-                height: "9rem",
+                width: { xs: "7rem", lg: "9rem" },
+                height: { xs: "7rem", lg: "9rem" },
                 border: "2px solid white",
-                fontSize: "3rem",
+                fontSize: { xs: "2rem", sm: "2rem", md: "2rem", lg: "3rem" },
               }}
               src="#"
               alt={profile.name}
             />
           </div>
-          <h1 className="mt-6 text-3xl ml-20">{profile.name}</h1>
-          <p className="ml-20">{profile.bio}</p>
-          <div className="flex item-center ml-20">
+          <h1 className="lg:mt-6 text-3xl lg:ml-20 mt-6 ml-4">
+            {profile.name}
+          </h1>
+          <p className="lg:ml-20 ml-4">{profile.bio}</p>
+          <div className="flex item-center lg:ml-20 ml-4">
             {profile.district},{profile.state},{profile.country}
             <div className="bg-[#a3a3a3] h-1 w-1 rounded-full ml-2 mt-3"></div>
             <Button
@@ -138,7 +140,7 @@ const TopProfile = () => {
               </ModalDialog>
             </Modal>
           </div>
-          <div className="ml-20 mt-2">
+          <div className="lg:ml-20 lg:mt-2 mt-2 ml-4">
             <Button
               varient="contained"
               onClick={() => {

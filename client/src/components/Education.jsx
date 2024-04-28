@@ -4,11 +4,11 @@ import Data from "../assets/ProfileData";
 
 const Education = () => {
   return (
-    <div className=" mt-4 bg-white rounded-3xl w-[75%] ml-52 h-auto">
+    <div className=" lg:ml-52 mt-4 lg:mt-4 lg:mr-0 lg:mb-0 sm:mr-2 sm:ml-2 md:mt-4 sm:mt-4 ml-2 mr-2 z-0 bg-white lg:w-[100%] rounded-3xl lg:max-w-[72rem] sm:max-w-screen-sm">
       {Data.map((edu) => (
         <div key={edu.id} className="mt-5">
-          <div className="ml-8 pt-6 text-3xl">Education</div>
-          <div className="lg:ml-[60rem] lg:mt-[-2.3rem] pb-10 ">
+          <div className="lg:ml-8 ml-5 pt-6 text-3xl">Education</div>
+          <div className="lg:ml-[60rem] lg:mt-[-2.3rem] ml-52 mt-[-2.3rem] pb-10 ">
             <Button
               variant="outlined"
               sx={{
@@ -21,7 +21,7 @@ const Education = () => {
               Add Education
             </Button>
           </div>
-          <div className="ml-8 w-[94%] flex flex-row pb-6">
+          <div className="lg:ml-8 w-[94%] ml-4 flex flex-row pb-6">
             <img
               src="/utu.png"
               alt="logo"
@@ -43,7 +43,7 @@ const Education = () => {
               marginLeft: "2rem",
             }}
           />
-          <div className="ml-8 w-[94%] flex flex-row pb-6 mt-6">
+          <div className="lg:ml-8 ml-4 w-[94%] flex flex-row pb-6 mt-6">
             <img
               src="/institute.avif"
               alt="logo"
