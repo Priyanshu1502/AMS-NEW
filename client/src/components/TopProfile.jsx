@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Data from "../assets/ProfileData";
 import {
   Avatar,
@@ -27,6 +27,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Countries from "../assets/Countries";
 import States from "../assets/States";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const TopProfile = () => {
   const [background, setBackground] = useState(false);
@@ -34,6 +37,48 @@ const TopProfile = () => {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [states, setStates] = useState([]);
+  const [selectedState, setSelectedState] = useState(null);
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(null);
+
+  useEffect(() => {
+    // Fetch countries from API
+    fetch("https://countriesnow.space/api/v0.1/countries")
+      .then((response) => response.json())
+      .then((data) => setCountries(data.data))
+      .catch((error) => console.error("Error fetching countries:", error));
+  }, []);
+
+  const handleCountryChange = (country) => {
+    setSelectedCountry(country);
+    if (country) {
+      // Fetch states based on selected country
+      fetch(`https://countriesnow.space/api/v0.1/countries/states/${country}`)
+        .then((response) => response.json())
+        .then((data) => setStates(data.data))
+        .catch((error) => console.error("Error fetching states:", error));
+    }
+  };
+
+  const handleStateChange = (state) => {
+    setSelectedState(state);
+    if (state) {
+      // Fetch cities based on selected state
+      fetch(
+        `https://countriesnow.space/api/v0.1/countries/states/cities/${selectedCountry}/${state}`
+      )
+        .then((response) => response.json())
+        .then((data) => setCities(data.data))
+        .catch((error) => console.error("Error fetching cities:", error));
+    }
+  };
+
+  const handleCityChange = (city) => {
+    setSelectedCity(city);
+  };
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -168,56 +213,203 @@ const TopProfile = () => {
               >
                 <Stack spacing={2}>
                   <Accordion
-                    sx={{
-                      width: "32rem",
-                    }}
                     expanded={expanded === "panel1"}
                     onChange={handleChange("panel1")}
+                    sx={{
+                      width: { xs: "18rem", lg: "42rem" },
+                    }}
                   >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                       Profile
                     </AccordionSummary>
                     <AccordionDetails>
-                      <FormControl>
-                        <FormLabel>Name</FormLabel>
-                        <Input autoFocus />
-                      </FormControl>
-                      <FormControl>
-                        <FormLabel>Bio</FormLabel>
-                        <Input autoFocus />
-                      </FormControl>
-                      <FormControl>
-                        <FormLabel>District</FormLabel>
-                        <Input autoFocus />
-                      </FormControl>
-                      <FormControl>
-                        <FormLabel>State</FormLabel>
-                        <Autocomplete
-                          {...selectStates}
-                          disableClearable
-                          size="small"
-                          renderInput={(params) => (
-                            <TextField {...params} varient="standard" />
-                          )}
-                        />
-                      </FormControl>
-                      <FormControl>
-                        <FormLabel>Country</FormLabel>
-                        <Autocomplete
-                          {...selectCountries}
-                          disableClearable
-                          size="small"
-                          renderInput={(params) => (
-                            <TextField {...params} varient="standard" />
-                          )}
-                        />
-                      </FormControl>
+                      <Stack spacing={2}>
+                        <FormControl>
+                          <FormLabel>Name</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Bio</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>District</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>State</FormLabel>
+                          <Autocomplete
+                            {...selectStates}
+                            disableClearable
+                            size="small"
+                            renderInput={(params) => (
+                              <TextField {...params} varient="standard" />
+                            )}
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Country</FormLabel>
+                          <Autocomplete
+                            id="country-autocomplete"
+                            options={countries}
+                            getOptionLabel={(option) => option.country}
+                            value={selectedCountry}
+                            onChange={(event, newValue) =>
+                              handleCountryChange(
+                                newValue ? newValue.country : null
+                              )
+                            }
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <Button
+                            variant="outlined"
+                            sx={{
+                              width: { xs: "16rem", lg: "40rem" },
+                              marginTop: "1rem",
+                            }}
+                          >
+                            Save
+                          </Button>
+                        </FormControl>
+                      </Stack>
                     </AccordionDetails>
                   </Accordion>
                   <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                       Education
                     </AccordionSummary>
+                    <AccordionDetails>
+                      <Stack spacing={2}>
+                        <FormControl>
+                          <FormLabel>Institution's Name</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Degree</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Field of Study</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Start Date</FormLabel>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker views={["month", "year"]} />
+                          </LocalizationProvider>
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>End Date</FormLabel>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker views={["month", "year"]} />
+                          </LocalizationProvider>
+                        </FormControl>
+                        <FormControl>
+                          <Button
+                            variant="outlined"
+                            sx={{
+                              width: { xs: "16rem", lg: "40rem" },
+                              marginTop: "1rem",
+                            }}
+                          >
+                            Save
+                          </Button>
+                        </FormControl>
+                      </Stack>
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      Skills
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Stack spacing={2}>
+                        <FormControl>
+                          <FormLabel>Add your Skills</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl></FormControl>
+                        <FormControl>
+                          <Button
+                            variant="outlined"
+                            sx={{
+                              width: { xs: "16rem", lg: "40rem" },
+                              marginTop: "1rem",
+                            }}
+                          >
+                            Save
+                          </Button>
+                        </FormControl>
+                      </Stack>
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      Experience
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Stack spacing={2}>
+                        <FormControl>
+                          <FormLabel>Job Title</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Company Name</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Job Type</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Start Date</FormLabel>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker views={["month", "year"]} />
+                          </LocalizationProvider>
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>End Date</FormLabel>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker views={["month", "year"]} />
+                          </LocalizationProvider>
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>State</FormLabel>
+                          <Autocomplete
+                            {...selectStates}
+                            disableClearable
+                            size="small"
+                            renderInput={(params) => (
+                              <TextField {...params} varient="standard" />
+                            )}
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Country</FormLabel>
+                          <Autocomplete
+                            {...selectCountries}
+                            disableClearable
+                            size="small"
+                            renderInput={(params) => (
+                              <TextField {...params} varient="standard" />
+                            )}
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <Button
+                            variant="outlined"
+                            sx={{
+                              width: { xs: "16rem", lg: "40rem" },
+                              marginTop: "1rem",
+                            }}
+                          >
+                            Save
+                          </Button>
+                        </FormControl>
+                      </Stack>
+                    </AccordionDetails>
                   </Accordion>
                 </Stack>
               </form>

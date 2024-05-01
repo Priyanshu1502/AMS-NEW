@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Divider } from "@mui/material";
 import Data from "../assets/ProfileData";
 
 const Education = () => {
+  const [image, setImage] = useState(false);
+
   return (
     <div className=" lg:ml-52 mt-4 lg:mt-4 lg:mr-0 lg:mb-0 sm:mr-2 sm:ml-2 md:mt-4 sm:mt-4 ml-2 mr-2 z-0 bg-white lg:w-[100%] rounded-3xl lg:max-w-[72rem] sm:max-w-screen-sm">
       {Data.map((edu) => (
@@ -22,11 +24,20 @@ const Education = () => {
             </Button>
           </div>
           <div className="lg:ml-8 w-[94%] ml-4 flex flex-row pb-6">
-            <img
-              src="/utu.png"
-              alt="logo"
-              className="w-14 h-14 rounded-full"
-            ></img>
+            {image ? (
+              <img
+                src={edu.utu}
+                alt="logo"
+                className="w-14 h-14 rounded-full"
+              ></img>
+            ) : (
+              <img
+                src={edu.sampleEImg}
+                alt="logo"
+                className="w-14 h-14 rounded-full"
+              ></img>
+            )}
+
             <div className="ml-3">
               <div className="text-lg">{edu.education1}</div>
               <div className="text-sm">
@@ -45,7 +56,7 @@ const Education = () => {
           />
           <div className="lg:ml-8 ml-4 w-[94%] flex flex-row pb-6 mt-6">
             <img
-              src="/institute.avif"
+              src={edu.sampleEImg}
               alt="logo"
               className="w-14 h-14 rounded-full"
             ></img>
