@@ -17,8 +17,8 @@ const SignIn = () => {
         .then(res => {
           console.log(res);
           if (res.status === 200) {
-            alert('You LoggedIn successfully.');
             navlink(`/home`)
+            // alert('You LoggedIn successfully.');
           }
         })
     } catch(err) {

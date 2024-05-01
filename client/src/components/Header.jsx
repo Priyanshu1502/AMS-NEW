@@ -11,7 +11,8 @@ const Header = () => {
   const toggleNavbar = () => {
     setToggle(!toggle);
   };
-  async function submit() {
+  const submit = async()=> {
+    navlink(`/`)
     try {
       await axios.post("/api/v1/users/logout", { withCredentials: true }) // by using withCredentials cookies are added.
         .then(res => {
@@ -26,6 +27,7 @@ const Header = () => {
         alert("Invalid User Credentials!")
       }
     };
+    
   }
 
   return (
