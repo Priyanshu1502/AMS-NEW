@@ -10,6 +10,11 @@ import Chat from "./pages/Chat/Chat";
 import Header from "./components/Header";
 import Gate from "./components/Gate";
 import Notifications from "./pages/Notifications";
+import ViewAchivement from "./pages/ViewAchivement";
+import ViewSkills from "./pages/ViewSkills";
+import ViewEducation from "./pages/ViewEducation";
+import ViewPost from "./pages/ViewPost";
+import ViewExperience from "./pages/ViewExperience";
 // import Footer from "./components/Footer";
 
 const App = () => {
@@ -26,6 +31,11 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/profile/skill" element={<ViewSkills />} />
+        <Route path="/profile/education" element={<ViewEducation />} />
+        <Route path="/profile/activity" element={<ViewPost />} />
+        <Route path="/profile/achivement" element={<ViewAchivement />} />
+        <Route path="/profile/experience" element={<ViewExperience />} />
       </Routes>
     </BrowserRouter>
   );
