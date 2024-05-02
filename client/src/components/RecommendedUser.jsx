@@ -8,13 +8,14 @@ const RecommendedUser = () => {
 
   const onFollow = (id) => {
     setIsFollowed();
+    console.log(id);
   };
 
   return (
     <div className="mt-7 pb-4 w-[90%] px-8 h-auto bg-white rounded sticky">
       <div className="border-b p-2">You Might also Know</div>
-      {Data.map((friend) => (
-        <div key={friend.key}>
+      {Data.map((friend, id) => (
+        <div key={friend.id}>
           <div className="grid grid-flow-col grid-cols-3 p-2">
             <div className="borded-b rounded borded-black">
               <Avatar src={friend.profileImg} />
@@ -32,6 +33,7 @@ const RecommendedUser = () => {
                 <Button
                   variant="contained"
                   sx={{ width: "0.4rem", fontSize: "11px" }}
+                  onClick={() => onFollow(friend.id)}
                 >
                   Follow
                 </Button>

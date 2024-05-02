@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Divider } from "@mui/material";
 import Data from "../assets/ProfileData";
 
 const Education = () => {
+  const [image, setImage] = useState(false);
+
   return (
-    <div className=" mt-4 bg-white rounded-3xl w-[75%] ml-52 h-auto">
-      {Data.map((education) => (
-        <div key={education.id} className="mt-5">
-          <div className="ml-8 pt-6 text-3xl">Education</div>
-          <div className="lg:ml-[60rem] lg:mt-[-2.3rem] pb-10 ">
+    <div className=" lg:ml-52 mt-4 lg:mt-4 lg:mr-0 lg:mb-0 sm:mr-2 sm:ml-2 md:mt-4 sm:mt-4 ml-2 mr-2 z-0 bg-white lg:w-[100%] rounded-3xl lg:max-w-[72rem] sm:max-w-screen-sm">
+      {Data.map((edu) => (
+        <div key={edu.id} className="mt-5">
+          <div className="lg:ml-8 ml-5 pt-6 text-3xl">Education</div>
+          <div className="lg:ml-[60rem] lg:mt-[-2.3rem] ml-52 mt-[-2.3rem] pb-10 ">
             <Button
               variant="outlined"
               sx={{
@@ -21,19 +23,28 @@ const Education = () => {
               Add Education
             </Button>
           </div>
-          <div className="ml-8 w-[94%] flex flex-row pb-6">
-            <img
-              src="/utu.png"
-              alt="logo"
-              className="w-14 h-14 rounded-full"
-            ></img>
+          <div className="lg:ml-8 w-[94%] ml-4 flex flex-row pb-6">
+            {image ? (
+              <img
+                src={edu.utu}
+                alt="logo"
+                className="w-14 h-14 rounded-full"
+              ></img>
+            ) : (
+              <img
+                src={edu.sampleEImg}
+                alt="logo"
+                className="w-14 h-14 rounded-full"
+              ></img>
+            )}
+
             <div className="ml-3">
-              <div className="text-lg">{education.education1}</div>
+              <div className="text-lg">{edu.education1}</div>
               <div className="text-sm">
-                {education.degree1} - {education.degreein1}
+                {edu.degree1} - {edu.degreein1}
               </div>
               <div className="text-sm text-gray-400">
-                {education.started1} - {education.Endedin1}
+                {edu.started1} - {edu.Endedin1}
               </div>
             </div>
           </div>
@@ -43,19 +54,19 @@ const Education = () => {
               marginLeft: "2rem",
             }}
           />
-          <div className="ml-8 w-[94%] flex flex-row pb-6 mt-6">
+          <div className="lg:ml-8 ml-4 w-[94%] flex flex-row pb-6 mt-6">
             <img
-              src="/institute.avif"
+              src={edu.sampleEImg}
               alt="logo"
               className="w-14 h-14 rounded-full"
             ></img>
             <div className="ml-3">
-              <div className="text-lg">{education.education2}</div>
+              <div className="text-lg">{edu.education2}</div>
               <div className="text-sm">
-                {education.degree2} - {education.degreein2}
+                {edu.degree2} - {edu.degreein2}
               </div>
               <div className="text-sm text-gray-400">
-                {education.started2} - {education.Endedin2}
+                {edu.started2} - {edu.Endedin2}
               </div>
             </div>
           </div>
