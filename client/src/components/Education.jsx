@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Divider } from "@mui/material";
 import Data from "../assets/ProfileData";
+import { NavLink } from "react-router-dom";
 
 const Education = () => {
   const [image, setImage] = useState(false);
@@ -70,18 +71,20 @@ const Education = () => {
               </div>
             </div>
           </div>
-          <div className="border-t-2 mt-2 flex items-center justify-center">
-            <Button
-              variant="plain"
-              sx={{
-                width: "71.3rem",
-                borderBottomRightRadius: "1rem",
-                borderBottomLeftRadius: "1rem",
-              }}
-            >
-              See all Educations...
-            </Button>
-          </div>
+          <NavLink to="/profile/education">
+            <div className="border-t-2 mt-2 flex flex-row-reverse items-center justify-center">
+              <Button
+                variant="plain"
+                sx={{
+                  width: "71.3rem",
+                  borderBottomRightRadius: "1rem",
+                  borderBottomLeftRadius: "1rem",
+                }}
+              >
+                See all Educations...
+              </Button>
+            </div>
+          </NavLink>
         </div>
       ))}
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import Data from "../assets/ProfileData";
 import { Button, Divider } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const Skill = () => {
   return (
@@ -26,18 +27,20 @@ const Skill = () => {
             <Divider />
             <div className="pb-5 text-lg mt-6">{skills.skill2}</div>
           </div>
-          <div className="border-t-2 mt-2 flex items-center justify-center">
-            <Button
-              variant="plain"
-              sx={{
-                width: "71.3rem",
-                borderBottomRightRadius: "1rem",
-                borderBottomLeftRadius: "1rem",
-              }}
-            >
-              See all Experiences...
-            </Button>
-          </div>
+          <NavLink to="/profile/skill">
+            <div className="border-t-2 mt-2 flex items-center justify-center">
+              <Button
+                variant="plain"
+                sx={{
+                  width: "71.3rem",
+                  borderBottomRightRadius: "1rem",
+                  borderBottomLeftRadius: "1rem",
+                }}
+              >
+                See all Skills...
+              </Button>
+            </div>
+          </NavLink>
         </div>
       ))}
     </div>

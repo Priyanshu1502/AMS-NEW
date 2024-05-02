@@ -1,6 +1,7 @@
 import React from "react";
 import Data from "../assets/ProfileData";
 import { Button, Divider } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const BottomProfile = () => {
   return (
@@ -69,18 +70,20 @@ const BottomProfile = () => {
               </div>
             </div>
           </div>
-          <div className="border-t-2 mt-2 flex items-center justify-center">
-            <Button
-              variant="plain"
-              sx={{
-                width: "71.3rem",
-                borderBottomRightRadius: "1rem",
-                borderBottomLeftRadius: "1rem",
-              }}
-            >
-              See all Educations...
-            </Button>
-          </div>
+          <NavLink to="/profile/experience">
+            <div className="border-t-2 mt-2 flex items-center justify-center">
+              <Button
+                variant="plain"
+                sx={{
+                  width: "71.3rem",
+                  borderBottomRightRadius: "1rem",
+                  borderBottomLeftRadius: "1rem",
+                }}
+              >
+                See all Educations...
+              </Button>
+            </div>
+          </NavLink>
         </div>
       ))}
     </div>

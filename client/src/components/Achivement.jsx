@@ -60,7 +60,7 @@ const Achivement = () => {
               </div>
             </div>
           </div>
-          <NavLink to="">
+          <NavLink to="/profile/achivement">
             <div className="border-t-2 mt-2 flex items-center justify-center">
               <Button
                 variant="plain"
@@ -70,7 +70,7 @@ const Achivement = () => {
                   borderBottomLeftRadius: "1rem",
                 }}
               >
-                See all Educations...
+                See all Achivements...
               </Button>
             </div>
           </NavLink>

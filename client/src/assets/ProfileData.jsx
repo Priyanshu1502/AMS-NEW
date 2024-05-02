@@ -40,7 +40,7 @@ const ProfileData = [
     para2: "Participated in the Techsummit held in the college 2k24",
     para3: "Hosted the geo Summit 2K25 on the topic of sustainable development",
     utu: "/utu.png",
-    sampleImg1: "/sample.svg",
+    sampleImg1: "/sample.png",
     sampleImg2: "/sample2.png",
     sampleEImg: "/institute.avif",
     achivDateStart1: "15 May 2023",

@@ -30,6 +30,7 @@ import States from "../assets/States";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const TopProfile = () => {
   const [background, setBackground] = useState(false);
@@ -43,6 +44,7 @@ const TopProfile = () => {
   const [selectedState, setSelectedState] = useState(null);
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [value, setValue] = React.useState(dayjs("2022-04-17"));
 
   useEffect(() => {
     // Fetch countries from API
@@ -219,7 +221,11 @@ const TopProfile = () => {
                       width: { xs: "18rem", lg: "42rem" },
                     }}
                   >
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1bh-content"
+                      id="panel1bh-header"
+                    >
                       Profile
                     </AccordionSummary>
                     <AccordionDetails>
@@ -276,8 +282,18 @@ const TopProfile = () => {
                       </Stack>
                     </AccordionDetails>
                   </Accordion>
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Accordion
+                    expanded={expanded === "panel2"}
+                    onChange={handleChange("panel2")}
+                    sx={{
+                      width: { xs: "18rem", lg: "42rem" },
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel2bh-content"
+                      id="panel2bh-header"
+                    >
                       Education
                     </AccordionSummary>
                     <AccordionDetails>
@@ -320,8 +336,18 @@ const TopProfile = () => {
                       </Stack>
                     </AccordionDetails>
                   </Accordion>
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Accordion
+                    expanded={expanded === "panel3"}
+                    onChange={handleChange("panel3")}
+                    sx={{
+                      width: { xs: "18rem", lg: "42rem" },
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel3bh-content"
+                      id="panel3bh-header"
+                    >
                       Skills
                     </AccordionSummary>
                     <AccordionDetails>
@@ -345,8 +371,18 @@ const TopProfile = () => {
                       </Stack>
                     </AccordionDetails>
                   </Accordion>
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Accordion
+                    expanded={expanded === "panel4"}
+                    onChange={handleChange("panel4")}
+                    sx={{
+                      width: { xs: "18rem", lg: "42rem" },
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel4bh-content"
+                      id="panel4bh-header"
+                    >
                       Experience
                     </AccordionSummary>
                     <AccordionDetails>
@@ -396,6 +432,64 @@ const TopProfile = () => {
                               <TextField {...params} varient="standard" />
                             )}
                           />
+                        </FormControl>
+                        <FormControl>
+                          <Button
+                            variant="outlined"
+                            sx={{
+                              width: { xs: "16rem", lg: "40rem" },
+                              marginTop: "1rem",
+                            }}
+                          >
+                            Save
+                          </Button>
+                        </FormControl>
+                      </Stack>
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion
+                    expanded={expanded === "panel5"}
+                    onChange={handleChange("panel5")}
+                    sx={{
+                      width: { xs: "18rem", lg: "42rem" },
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel5bh-content"
+                      id="panel5bh-header"
+                    >
+                      Achivement
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Stack spacing={2}>
+                        <FormControl>
+                          <FormLabel required>Achivement Title</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>About</FormLabel>
+                          <Input autoFocus />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Start Date</FormLabel>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="Controlled picker"
+                              value={value}
+                              onChange={(newValue) => setValue(newValue)}
+                            />
+                          </LocalizationProvider>
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>End Date</FormLabel>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="Controlled picker"
+                              value={value}
+                              onChange={(newValue) => setValue(newValue)}
+                            />
+                          </LocalizationProvider>
                         </FormControl>
                         <FormControl>
                           <Button
