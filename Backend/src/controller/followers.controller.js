@@ -48,7 +48,7 @@ const getUserFollowing = asyncHandler(async (req, res) => {
       $lookup: {
         from: "followingdbs",
         localField: "_id",
-        foreignField: "FollowedId",
+        foreignField: "followedId",
         as: "followers",
       },
     },
@@ -56,7 +56,7 @@ const getUserFollowing = asyncHandler(async (req, res) => {
       $lookup: {
         from: "followingdbs",
         localField: "_id",
-        foreignField: "FollowerId",
+        foreignField: "followerId",
         as: "followedBy",
       },
     },
@@ -96,14 +96,14 @@ const userFollowings = asyncHandler(async (req, res) => {
   if (!user) {
     throw new apiError(404, "No User Found you want to follow!");
   }
-  if (followingId === req.user._id) {
+  if (followingId == req.user._id) {
     throw new apiError(400, "You cannot follow yourself!");
   }
 
-  const userfollowers = await FollowingDB.findOne(
-    { followerId: req.user._id },
-    { followedId: followingId }
-  );
+  const userfollowers = await FollowingDB.findOne({
+    followerId: req.user._id,
+    followedId: followingId,
+  });
   if (userfollowers) {
     await FollowingDB.findByIdAndDelete(userfollowers._id);
     return res

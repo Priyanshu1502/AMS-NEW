@@ -1,8 +1,21 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { Server } from "socket.io";
+import { createServer } from "http";
 
 const app = express();
+const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
+  pingTimeout: 60000,
+  cors: {
+    origin: process.env.CORS_URL,
+    credentials: true,
+  },
+});
+
+app.set("io", io); // using set method to mount the `io` instance on the app to avoid usage of `global`
 
 app.use(
   cors({
@@ -24,4 +37,4 @@ import userPost from "./routes/posts.route.js";
 
 app.use("/api/v1/users", userRoutes, userFollowers);
 app.use("/api/v1/posts", userPost);
-export { app };
+export { httpServer };

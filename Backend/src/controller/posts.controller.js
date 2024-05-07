@@ -60,6 +60,9 @@ const getPostById = asyncHandler(async (req, res) => {
 
   const post = await PostDB.findById(PostId);
 
+  if (!post) {
+    throw new apiError(404, "Invalid Post ID.");
+  }
   res
     .status(200)
     .json(new apiResponse(200, "The Post is fetched successfully.", post));
@@ -103,7 +106,7 @@ const deletePost = asyncHandler(async (req, res) => {
     throw new apiError(404, "Post Not Found!");
   }
 
-  Post.deleteOne();
+  await Post.deleteOne();
   res
     .status(200)
     .json(new apiResponse(200, "The Post is deleted successfully."));
