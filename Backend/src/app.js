@@ -37,4 +37,8 @@ import userPost from "./routes/posts.route.js";
 
 app.use("/api/v1/users", userRoutes, userFollowers);
 app.use("/api/v1/posts", userPost);
+
+import { initializeSocketIO } from "./sockets/index.js";
+initializeSocketIO(io);
+
 export { httpServer };
