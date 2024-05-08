@@ -12,7 +12,6 @@ const messageSchema = new Schema(
     attachments: {
       type: [
         {
-          url: String,
           localPath: String,
         },
       ],

@@ -1,7 +1,7 @@
 import { Socket, Server } from "socket.io";
 import { AvailableChatEvents, ChatEventEnum } from "../constant.js";
 import { UserDB } from "../model/users.model.js";
-import { apiError } from "../utils/apiError";
+import { apiError } from "../utils/apiError.js";
 
 /**
  * @description This function is responsible to allow user to join the chat represented by chatId (chatId). event happens when user switches between the chats

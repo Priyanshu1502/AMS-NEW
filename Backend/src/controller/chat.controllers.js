@@ -123,7 +123,7 @@ const searchAvailableUsers = asyncHandler(async (req, res) => {
 
 const createOrGetAOneOnOneChat = asyncHandler(async (req, res) => {
   const { receiverId } = req.params;
-
+  // console.log(receiverId);
   const isUserValid = await UserDB.findById(receiverId);
 
   if (!isUserValid) {

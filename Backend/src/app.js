@@ -41,4 +41,10 @@ app.use("/api/v1/posts", userPost);
 import { initializeSocketIO } from "./sockets/index.js";
 initializeSocketIO(io);
 
+import chatRouter from "./routes/chat.routes.js";
+import messageRouter from "./routes/message.routes.js";
+
+app.use("/api/v1/chat-app/chats", chatRouter);
+app.use("/api/v1/chat-app/messages", messageRouter);
+
 export { httpServer };
