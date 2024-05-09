@@ -29,7 +29,15 @@ const CreatePost = () => {
                 }}
               ></input>
             </div>
-            <Modal open={post} onClose={() => setPost(false)}>
+            <Modal
+              open={post}
+              onClose={() => setPost(false)}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <CreatePostModal />
             </Modal>
           </div>
