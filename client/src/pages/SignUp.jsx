@@ -1,12 +1,56 @@
 import { CheckBox } from "@mui/icons-material";
 import { FormControlLabel, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { NavLink } from "react-router-dom";
+import {useNavigate, NavLink } from "react-router-dom";
+import axios, { AxiosError } from 'axios';
 
 const SignUp = () => {
-  const handleChange = {};
+  const navlink = useNavigate();
+  // const navlink = useNavigate();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullname, setfullname] = useState('');
+  const [username, setusername] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  async function submit(e) {
+    e.preventDefault();
+    if (password === confirmPassword) {
+      // let fullName=Firstname+" "+Lastname;
+      // console.log("dsad",name)
+      try {
+        await axios.post("/api/v1/users/register", {
+          email, password, fullname, username, confirmPassword
+
+        }).then(res => {
+          // console.log(res.status)
+          if(res.status === 201){
+            navlink('/')
+            alert("You registered successfully.")
+          }
+        })
+      }catch(err){
+        if(err.response.status===409){
+        alert("Email and Username is already registered!")
+        }
+        else if(err.response.status === 404){
+          alert("All fields are required!")
+        }
+        else if(err.response.status === 400){
+          alert("password and confirm password is not same!")
+        }
+        else{
+          alert("All fields are required!")
+        }
+      }
+    }
+
+    else {
+      alert('password and confirm password is different');
+    }
+  }
   return (
     <div className="min-h-screen py-10">
       <div className="container mx-auto ">
@@ -31,10 +75,11 @@ const SignUp = () => {
                 <TextField
                   id="outlined-basic"
                   type="text"
-                  label="First Name"
+                  label="Full Name"
                   variant="outlined"
                   color="success"
-                  onChange
+                  required
+                  onChange={(e) => { setfullname(e.target.value) }}
                   sx={{
                     backgroundColor: "#fff",
                     // borderStyle: "none",
@@ -46,9 +91,11 @@ const SignUp = () => {
                 <TextField
                   id="outlined-basic"
                   type="text"
-                  label="Last Name"
+                  label="Username"
                   variant="outlined"
                   color="success"
+                  required
+                  onChange={(e) => { setusername(e.target.value) }}
                   sx={{
                     backgroundColor: "#fff",
                     // borderStyle: "none",
@@ -65,6 +112,8 @@ const SignUp = () => {
                   label="Email"
                   variant="outlined"
                   color="success"
+                  required
+                  onChange={(e) => { setEmail(e.target.value) }}
                   sx={{
                     backgroundColor: "#fff",
                     // borderStyle: "none",
@@ -80,6 +129,8 @@ const SignUp = () => {
                   label="Password"
                   type="password"
                   color="success"
+                  required
+                  onChange={(e) => { setPassword(e.target.value) }}
                   autoComplete="current-password"
                   sx={{
                     backgroundColor: "#fff",
@@ -93,7 +144,9 @@ const SignUp = () => {
                   label="Confirm Password"
                   type="password"
                   color="success"
+                  required
                   autoComplete="current-password"
+                  onChange={(e) => { setConfirmPassword(e.target.value) }}
                   sx={{
                     backgroundColor: "#fff",
                     width: "100%",
@@ -110,6 +163,7 @@ const SignUp = () => {
               <div className="mt-5">
                 <Button
                   variant="contained"
+                  onClick={submit}
                   sx={{
                     backgroundColor: "#2ED68A",
                     width: "95%",

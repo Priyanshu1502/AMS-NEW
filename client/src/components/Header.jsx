@@ -1,15 +1,34 @@
 import { Button } from "@mui/material";
 import Navlinks from "./NavigationList";
 import { useState } from "react";
+import {useNavigate} from "react-router-dom"
 import ProfileAvatar from "./ProfileAvatar";
 import Drawer from "./Drawer";
 
 const Header = () => {
+  const navlink = useNavigate();
   const [toggle, setToggle] = useState(true);
-
   const toggleNavbar = () => {
     setToggle(!toggle);
   };
+  const submit = async()=> {
+    navlink(`/`)
+    try {
+      await axios.post("/api/v1/users/logout", { withCredentials: true }) // by using withCredentials cookies are added.
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            alert('You Loggedout successfully.');
+            navlink(`/`)
+          }
+        })
+    } catch(err) {
+      if(err.response.status === 401){
+        alert("Invalid User Credentials!")
+      }
+    };
+    
+  }
 
   return (
     <div className="bg-white shadow-xl sticky top-0 z-[100]">
@@ -22,7 +41,7 @@ const Header = () => {
         </div>
         <div className="flex items-center gap-6">
           <div className="hidden md:block">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={submit}>
               LOgout
             </Button>
           </div>
