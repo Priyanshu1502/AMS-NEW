@@ -1,38 +1,66 @@
-// Import necessary modules and utilities
 import axios from "axios";
+import { application } from "express";
 
-// Create an Axios instance for API requests
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URI,
+  baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
   timeout: 120000,
 });
-
-// API functions for different actions
-const loginUser = ({ username, email, password}) => {
-  return apiClient.post("/users/login", username, password ,email);
-};
-
-const registerUser = ({
-  email ,
-  password,
-  username
-}) => {
-  return apiClient.post("/users/register", email,password,username);
-};
 
 const logoutUser = () => {
   return apiClient.post("/users/logout");
 };
 
-const getAvailableUsers = () => {
-  return apiClient.get("/chat-app/chats/users");
+const getLogInUserDetails = () => {
+  return apiClient.get("/users/user-info");
 };
 
-const getUserChats = () => {
-  return apiClient.get(`/chat-app/chats`);
+const refreshToken = () => {
+  return apiClient.post("/users/refresh-token");
 };
 
-const createUserChat = (receiverId) => {
-  return apiClient.post(`/chat-app/chats/c/${receiverId}`);
-}
+// In change password you should pass old password and new password in body.
+const changePassword = ({ oldPassword, newpassword }) => {
+  return apiClient.post("/users/change-password", { oldPassword, newpassword });
+};
+
+// In update account you only update  email, fullname username only for now.
+const updateUserAccount = ({ email, username, fullname }) => {
+  return apiClient.post("/users/update-account", { email, username, fullname });
+};
+
+// In delete account you should pass password to delete account.
+const deleteUserAccount = (password) => {
+  return apiClient.post("/users/delete-account", { password });
+};
+
+//In update avatar only pass image.
+const updateUserAvatar = (avatar) => {
+  return apiClient.post("/users/update-avatar", { avatar });
+};
+
+// In this pass cover image.
+const updateCoverImage = (coverImage) => {
+  return apiClient.post("/users/update-coverimage", { coverImage });
+};
+
+const getUserChannelDetail = (username) => {
+  return apiClient.get(`/users/accounts/channel/${username}`);
+};
+
+const getUserProfileDetail = (username) => {
+  return apiClient.post(`/users/accounts/profile/${username}`);
+};
+
+export {
+  logoutUser,
+  getUserChannelDetail,
+  getUserProfileDetail,
+  updateCoverImage,
+  updateUserAccount,
+  updateUserAvatar,
+  deleteUserAccount,
+  changePassword,
+  refreshToken,
+  getLogInUserDetails,
+};
