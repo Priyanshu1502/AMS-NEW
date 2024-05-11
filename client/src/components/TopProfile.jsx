@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Data from "../assets/ProfileData";
+import Data from "../assets/TopProfileData";
 import {
   Avatar,
   Button,
