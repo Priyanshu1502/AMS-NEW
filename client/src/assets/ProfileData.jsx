@@ -57,6 +57,9 @@ const ProfileData = [
     degree: "Diploma of Education",
     degreein: "Electrical Engineering",
     notification: "event #2 for the alumni's",
+    district: "Dehradun",
+    state: "Uttarakhand",
+    country: "India",
   },
   {
     id: 3,
@@ -82,6 +85,9 @@ const ProfileData = [
     degree: "Diploma of Education",
     degreein: "Electrical Engineering",
     notification: "event #3 for the alumni's",
+    district: "Dehradun",
+    state: "Uttarakhand",
+    country: "India",
   },
 ];
 

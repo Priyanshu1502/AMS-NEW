@@ -12,7 +12,7 @@ import Data from "../assets/ProfileData";
 const Notifications = () => {
   return (
     <div className="bg-[#e3e3e3] lg:w-full md:w-full  h-[100vh] flex flex-col item-center ">
-      <div className="w-[98%] bg-white rounded lg:ml-3 ml-3 lg:mt-4 mt-4 lg:h-[95vh] h-[95vh]">
+      <div className="w-[98%] bg-white rounded lg:ml-4 ml-4 lg:mt-4 mt-4 lg:h-[95vh] h-[95vh]">
         <p className="text-3xl ml-6 mt-6 border-b-2 border-grey pb-2 w-[96%]">
           Notifications
         </p>

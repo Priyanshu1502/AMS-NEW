@@ -11,10 +11,10 @@ const CreatePost = () => {
   const [post, setPost] = useState(false);
 
   return (
-    <div className="bg-white w-[85%] shadow-lg mt-4 rounded">
-      {Data.map((profile) => (
+    <div className="bg-white lg:w-[85%] shadow-lg mt-4 rounded lg:pt-0 pt-2">
+      {Data.slice(1, 2).map((profile) => (
         <div>
-          <div className="flex flex-row mt-4 ml-6 mb-2 border-gray">
+          <div className="flex flex-row mt-4 ml-6 mb-2 border-gray ">
             <img
               src={profile.profileImg}
               alt="profileImg"
@@ -23,7 +23,7 @@ const CreatePost = () => {
             <div className="ml-4">
               <input
                 placeholder="Create a post"
-                className="w-[35rem] h-12 border-gray-400 border-[1px]"
+                className="lg:w-[34rem] h-12 border-gray-400 border-[1px] sm:w-[10rem] w-[16rem]"
                 onClick={() => {
                   setPost(!post);
                 }}

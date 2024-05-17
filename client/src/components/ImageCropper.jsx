@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { FormLabel } from "@mui/joy";
 
-const ImageCropper = ({ image, cropDone, cropCancel }) => {
+const ImageCropper = ({ image, cropDone, cropCancel, setPost }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
 
@@ -68,6 +68,7 @@ const ImageCropper = ({ image, cropDone, cropCancel }) => {
           variant="contained"
           onClick={() => {
             cropDone(croppedArea);
+            setPost(true);
           }}
         >
           Crop & Apply
