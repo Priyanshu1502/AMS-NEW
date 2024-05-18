@@ -34,9 +34,11 @@ app.use(express.static("public"));
 import userRoutes from "./routes/users.route.js";
 import userFollowers from "./routes/followers.routes.js";
 import userPost from "./routes/posts.route.js";
+import postLike from "./routes/likes.route.js";
+import postComment from "./routes/comment.routes.js";
 
 app.use("/api/v1/users", userRoutes, userFollowers);
-app.use("/api/v1/posts", userPost);
+app.use("/api/v1/posts", userPost, postLike, postComment);
 
 import { initializeSocketIO } from "./sockets/index.js";
 initializeSocketIO(io);
