@@ -12,6 +12,7 @@ import { styled } from "@mui/material/styles";
 import ImageInput from "./ImageInput";
 import { Modal } from "@mui/joy";
 import ImageCropper from "./ImageCropper";
+import PostWithImage from "./PostWithImage";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -32,6 +33,13 @@ const CreatePostModal = () => {
   const [openModal, setOpenModal] = useState(false);
   const [imgAfterCrop, setImageAfterCrop] = useState("");
   const [currentPage, setCurrentPage] = useState("choose-img");
+  const [post, setPost] = useState(false);
+
+  const modalOpen = () => {
+    if (cropDone == dataUrl) {
+      setPost(true);
+    }
+  };
 
   const cropDone = (imgCropped) => {
     const canvasEle = document.createElement("canvas");
@@ -118,6 +126,7 @@ const CreatePostModal = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
+
         <Button
           startIcon={<InsertEmoticonIcon />}
           onClick={() => setOpenPicker(!openPicker)}
@@ -150,7 +159,9 @@ const CreatePostModal = () => {
                 />
               </Modal>
             ) : (
-              <div></div>
+              <div>
+                <img src={imgAfterCrop} alt="cropped-img"></img>
+              </div>
             )}
           </div>
 

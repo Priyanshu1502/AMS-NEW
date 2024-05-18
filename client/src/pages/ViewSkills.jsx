@@ -47,11 +47,10 @@ const ViewSkills = () => {
       </div>
       {Data.map((skill) => (
         <div key={skill.id} className="bg-white flex flex-col">
-          <div className=" font-semibold text-lg mt-10 ml-10">
-            {skill.skill}
-          </div>
-          <p className="ml-10">{skill.education1}</p>
+          <p className=" font-semibold text-lg mt-10 ml-10">{skill.skill}</p>
+          <p className="ml-10">{skill.education}</p>
           <div className="border-b-black h-1 w-full"></div>
+          <Divider />
         </div>
       ))}
     </div>

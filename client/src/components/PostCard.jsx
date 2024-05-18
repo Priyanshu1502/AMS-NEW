@@ -38,13 +38,10 @@ const PostCard = () => {
 
   const [isSaved, setIsSaved] = useState(false);
   const onSave = () => {
-    setIsSaved(!isSaved);
+    setIsSaved(!isSaved), setOpenSnackbar(true);
   };
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const showSnackbar = () => {
-    setOpenSnackbar(true);
-  };
 
   const closeSnackbar = () => {
     setOpenSnackbar(false);
@@ -125,7 +122,7 @@ const PostCard = () => {
             <img
               src={post.postImg}
               alt={post.caption}
-              className="w-full object-center rounded h-full "
+              className="w-full object-cover rounded h-full "
             />
           </div>
           {/* User actions: like, comments etc */}
@@ -185,7 +182,7 @@ const PostCard = () => {
                 />
               )}
               <Snackbar
-                open={isSaved}
+                open={openSnackbar}
                 autoHideDuration={2000}
                 onClose={closeSnackbar}
                 message="Post Saved!"
