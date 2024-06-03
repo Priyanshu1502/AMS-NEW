@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import Navlinks from "./NavigationList";
 import { useState } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import ProfileAvatar from "./ProfileAvatar";
 import Drawer from "./Drawer";
+import { logoutUser } from "../api/index";
 
 const Header = () => {
   const navlink = useNavigate();
@@ -11,24 +12,11 @@ const Header = () => {
   const toggleNavbar = () => {
     setToggle(!toggle);
   };
-  const submit = async()=> {
-    navlink(`/`)
-    try {
-      await axios.post("/api/v1/users/logout", { withCredentials: true }) // by using withCredentials cookies are added.
-        .then(res => {
-          console.log(res);
-          if (res.status === 200) {
-            alert('You Loggedout successfully.');
-            navlink(`/`)
-          }
-        })
-    } catch(err) {
-      if(err.response.status === 401){
-        alert("Invalid User Credentials!")
-      }
-    };
-    
-  }
+
+  const submit = async () => {
+    await logoutUser();
+    navigate("/");
+  };
 
   return (
     <div className="bg-white shadow-xl sticky top-0 z-[100]">

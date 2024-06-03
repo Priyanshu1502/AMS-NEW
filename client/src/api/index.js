@@ -3,7 +3,6 @@ import axios from "axios";
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
-  timeout: 120000,
 });
 
 const register = ({ username, email, password, fullname, confirmPassword }) => {
