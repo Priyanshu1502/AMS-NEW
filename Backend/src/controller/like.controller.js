@@ -2,7 +2,7 @@ import mongoose, { isValidObjectId, mongo } from "mongoose";
 import { likesDB } from "../model/likes.model.js";
 import { apiError } from "../utils/apiError.js";
 import apiResponse from "../utils/apiResponse.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
+import asyncHandler from "../utils/asyncHandler.js";
 import { CommentDB } from "../model/comments.model.js";
 
 const togglePostLike = asyncHandler(async (req, res) => {
