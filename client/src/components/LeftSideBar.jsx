@@ -30,7 +30,7 @@ const LeftSideBar = (userDetail) => {
 
   useEffect(() => {
     axios
-      .get("/api/")
+      .get("/api/v1/users/user-info")
       .then((response) => {
         setGetImage(response.data);
       })
@@ -41,25 +41,23 @@ const LeftSideBar = (userDetail) => {
 
   return (
     <div className="flex flex-col bg-white rounded">
-      {getImage.map((image) => (
+      {getImage.map((info) => (
         <React.Fragment>
           <div className="flex flex-col justify-center items-center rounded">
             <img
-              src="banner.jpg"
+              src={info.profileImg}
               alt="background-img"
               className="z-0 rounded-t-lg w-96 h-28"
             />{" "}
             <img
-              src="userpic.jpg"
+              src="banner.jpg"
               alt="profile-pic"
               className=" z-10 rounded-[50%] w-20 h-20 border-4 mt-[-3rem] aspect-square"
             />
           </div>
+          {console.log(info)}
           <div className="flex justify-center item-center px-3 pb-4">
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
-            </p>
+            <p>{info.username}</p>
           </div>
           <Divider />
           <div>
