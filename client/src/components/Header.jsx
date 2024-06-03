@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ProfileAvatar from "./ProfileAvatar";
 import Drawer from "./Drawer";
 import { logoutUser } from "../api/index";
+import axios from "axios";
 
 const Header = () => {
   const navlink = useNavigate();
@@ -13,11 +14,22 @@ const Header = () => {
     setToggle(!toggle);
   };
 
-  const submit = async () => {
-    await logoutUser();
-    navigate("/");
-  };
-
+  async function submit(e) {
+    e.preventDefault();
+    try {
+      await axios
+        .post("/api/v1/users/logout", { withCredentials: true }) // by using withCredentials cookies are added.
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            navlink(`/`);
+            alert("You Loggedout successfully.");
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <div className="bg-white shadow-xl sticky top-0 z-[100]">
       <nav className=" flex justify-between items-center w-[92%] mx-auto">

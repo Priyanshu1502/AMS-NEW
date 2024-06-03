@@ -13,6 +13,9 @@ import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import React from "react";
 import EmojiEvents from "@mui/icons-material/EmojiEvents";
+import { getLogInUserDetails } from "../api/index.js";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const LeftSideBar = (userDetail) => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -20,10 +23,28 @@ const LeftSideBar = (userDetail) => {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
+  const [username, setUsername] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [fullName, setFullName] = useState([]);
+  const [education, setEducation] = useState([]);
+  const [skill, setSkill] = useState([]);
 
-  const UserDetail = () => {
-    return userDetail;
-  };
+  useEffect(() => {
+    try {
+      axios
+        .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .then((data) => {
+          // console.log(username);
+          return setUsername(data.username);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col bg-white rounded">
@@ -38,6 +59,9 @@ const LeftSideBar = (userDetail) => {
           alt="profile-pic"
           className=" z-10 rounded-[50%] w-20 h-20 border-4 mt-[-3rem] aspect-square"
         />
+      </div>
+      <div className="flex justify-center item-center px-3 pb-4">
+        <h1>{username}</h1>
       </div>
       <div className="flex justify-center item-center px-3 pb-4">
         <p>
