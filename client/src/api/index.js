@@ -1,10 +1,8 @@
 import axios from "axios";
-import { application } from "express";
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
-  timeout: 120000,
 });
 
 const logoutUser = () => {

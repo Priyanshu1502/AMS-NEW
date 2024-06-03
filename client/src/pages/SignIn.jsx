@@ -2,36 +2,39 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
-import { useNavigate , NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 
 const SignIn = () => {
   const navlink = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   async function submit(e) {
     e.preventDefault();
     try {
-      await axios.post("/api/v1/users/login", { email, password }, { withCredentials: true }) // by using withCredentials cookies are added.
-        .then(res => {
+      await axios
+        .post(
+          "/api/v1/users/login",
+          { email, password },
+          { withCredentials: true }
+        ) // by using withCredentials cookies are added.
+        .then((res) => {
           console.log(res);
           if (res.status === 200) {
-            navlink(`/home`)
-            // alert('You LoggedIn successfully.');
+            navlink(`/home`);
+            alert("You LoggedIn successfully.");
           }
-        })
-    } catch(err) {
-      if(err.response.status ===401){
-        alert("your password is incorrect")
+        });
+    } catch (err) {
+      if (err.response.status === 401) {
+        alert("your password is incorrect");
+      } else if (err.response.status === 404) {
+        alert("All fields are required!");
+      } else if (err.response.status === 500) {
+        alert("Something wents wrong in Server!");
       }
-      else if(err.response.status ===404){
-        alert("All fields are required!")
-      }
-      else if(err.response.status === 500){
-        alert("Something wents wrong in Server!")
-      }
-    };
+    }
   }
   return (
     <div className="bg-black-100 min-h-screen flex items-center justify-center">
@@ -48,7 +51,9 @@ const SignIn = () => {
                 id="outlined-basic"
                 type="email"
                 label="Email"
-                onChange={(e) => { setEmail(e.target.value) }}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 variant="outlined"
                 color="success"
                 sx={{
@@ -66,7 +71,9 @@ const SignIn = () => {
                 label="Password"
                 type="password"
                 color="success"
-                onChange={(e) => { setPassword(e.target.value) }}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 autoComplete="current-password"
                 sx={{
                   backgroundColor: "#fff",
