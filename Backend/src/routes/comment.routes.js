@@ -11,7 +11,7 @@ const router = Router();
 
 router.use(UserAuthentication); // Apply verifyJWT middleware to all routes in this file
 
-router.route("/:PostId").get(getPostComments).post(addComment);
+router.route("/p/c/:PostId").get(getPostComments).post(addComment);
 router.route("/c/:commentId").delete(deleteComment).patch(updateComment);
 
 export default router;
