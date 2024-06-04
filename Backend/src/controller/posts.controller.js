@@ -3,6 +3,7 @@ import { PostDB } from "../model/posts.model.js";
 import { apiError } from "../utils/apiError.js";
 import apiResponse from "../utils/apiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 //This fetched all the User Post whose LoggedIn.
 const getAllPost = asyncHandler(async (req, res) => {
@@ -36,9 +37,18 @@ const publishAPost = asyncHandler(async (req, res) => {
   if (!(title && description)) {
     throw new apiError(404, "Title and description is required!");
   }
+  if (PostImgPath) {
+    var postImg = await uploadOnCloudinary(PostImgPath);
 
+    if (!postImg) {
+      throw new apiError(
+        400,
+        "Error while uploading post image on Cloudinary!"
+      );
+    }
+  }
   const publishingPost = await PostDB.create({
-    postImg: PostImgPath,
+    postImg: postImg.url || "",
     title,
     owner: req.user._id,
     description,
@@ -73,11 +83,22 @@ const updatePost = asyncHandler(async (req, res) => {
 
   const { title, description } = req?.body;
 
-  const PostImg = req?.file;
+  const PostImgPath = req?.file?.path;
 
   // if (!title || !description) {
   //   throw new apiError(404, "title and description is required!");
   // }
+
+  if (PostImgPath) {
+    var postImg = await uploadOnCloudinary(PostImgPath);
+
+    if (!postImg) {
+      throw new apiError(
+        400,
+        "Error while uploading post image on Cloudinary!"
+      );
+    }
+  }
 
   const newPost = await PostDB.findByIdAndUpdate(
     PostId,
@@ -85,7 +106,7 @@ const updatePost = asyncHandler(async (req, res) => {
       $set: {
         title: title,
         description: description,
-        postImg: PostImg?.path,
+        postImg: postImg.url,
       },
     },
     {

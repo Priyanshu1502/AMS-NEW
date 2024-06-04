@@ -36,12 +36,27 @@ const userSchema = new Schema(
       require: [true, "Password is required"],
     },
     education: {
-      type: String,
-      default: "",
+      institionName: String,
+      degree: String,
+      fieldOfStudy: String,
+      startDate: String,
+      endDate: String,
     },
     skill: {
       type: String,
       default: "",
+    },
+    bio: {
+      type: String,
+    },
+    district: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
     },
     refreshToken: {
       type: String,
