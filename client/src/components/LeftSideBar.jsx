@@ -16,10 +16,11 @@ import EmojiEvents from "@mui/icons-material/EmojiEvents";
 import { getLogInUserDetails } from "../api/index.js";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LeftSideBar = (userDetail) => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-
+  const navlink = useNavigate();
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
@@ -28,23 +29,32 @@ const LeftSideBar = (userDetail) => {
   const [fullName, setFullName] = useState([]);
   const [education, setEducation] = useState([]);
   const [skill, setSkill] = useState([]);
+  const [avatar, setAvatar] = useState([]);
+  const [coverImage, setCoverImage] = useState([]);
 
   useEffect(() => {
     try {
       axios
         .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
         .then((res) => {
-          // console.log(res.data.data);
           return res.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          navlink(`/`);
         })
         .then((data) => {
           // console.log(username);
-          return setUsername(data.username);
+          return (
+            setUsername(data.username),
+            setAvatar(data.avatar),
+            setCoverImage(data.coverImage)
+          );
         });
     } catch (err) {
-      console.log(err);
+      return console.log(err);
     }
-  }, []);
+  }, [userDetail]);
 
   return (
     <div className="flex flex-col bg-white rounded">
@@ -61,7 +71,7 @@ const LeftSideBar = (userDetail) => {
         />
       </div>
       <div className="flex justify-center item-center px-3 pb-4">
-        <h1>{username}</h1>
+        <h1 className="font-black text-xl">{username}</h1>
       </div>
       <div className="flex justify-center item-center px-3 pb-4">
         <p>
