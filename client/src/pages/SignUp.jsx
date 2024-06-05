@@ -2,53 +2,63 @@ import { CheckBox } from "@mui/icons-material";
 import { FormControlLabel, TextField } from "@mui/material";
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import {useNavigate, NavLink } from "react-router-dom";
-import axios, { AxiosError } from 'axios';
+import { useNavigate, NavLink } from "react-router-dom";
+import axios, { AxiosError } from "axios";
 
 const SignUp = () => {
   const navlink = useNavigate();
-  // const navlink = useNavigate();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [fullname, setfullname] = useState('');
-  const [username, setusername] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  function ValidateEmail(input) {
+    var validRegex = "@";
+
+    if (input.includes(validRegex)) {
+      return true;
+    } else {
+      alert("Invalid email address '@' is missing!");
+      document.form1.email.focus();
+      return false;
+    }
+  }
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullname, setfullname] = useState("");
+  const [username, setusername] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   async function submit(e) {
     e.preventDefault();
     if (password === confirmPassword) {
-      // let fullName=Firstname+" "+Lastname;
-      // console.log("dsad",name)
+      ValidateEmail(email);
       try {
-        await axios.post("/api/v1/users/register", {
-          email, password, fullname, username, confirmPassword
-
-        }).then(res => {
-          // console.log(res.status)
-          if(res.status === 201){
-            navlink('/')
-            alert("You registered successfully.")
-          }
-        })
-      }catch(err){
-        if(err.response.status===409){
-        alert("Email and Username is already registered!")
-        }
-        else if(err.response.status === 404){
-          alert("All fields are required!")
-        }
-        else if(err.response.status === 400){
-          alert("password and confirm password is not same!")
-        }
-        else{
-          alert("All fields are required!")
+        await axios
+          .post("/api/v1/users/register", {
+            email,
+            password,
+            fullname,
+            username,
+            confirmPassword,
+          })
+          .then((res) => {
+            // console.log(res.status)
+            if (res.status === 201) {
+              navlink("/");
+              alert("You registered successfully.");
+            }
+          });
+      } catch (err) {
+        if (err.response.status === 409) {
+          alert("Email and Username is already registered!");
+        } else if (err.response.status === 404) {
+          alert("All fields are required!");
+        } else if (err.response.status === 400) {
+          alert("password and confirm password is not same!");
+        } else {
+          alert("All fields are required!");
         }
       }
-    }
-
-    else {
-      alert('password and confirm password is different');
+    } else {
+      alert("password and confirm password is different");
     }
   }
   return (
@@ -70,7 +80,7 @@ const SignUp = () => {
             <p className="">
               Create your account. It's free and only takes a minute.
             </p>
-            <form action="#">
+            <form name="form1" action="#">
               <div className="grid grid-cols-2 gap-5 mt-2">
                 <TextField
                   id="outlined-basic"
@@ -79,7 +89,9 @@ const SignUp = () => {
                   variant="outlined"
                   color="success"
                   required
-                  onChange={(e) => { setfullname(e.target.value) }}
+                  onChange={(e) => {
+                    setfullname(e.target.value);
+                  }}
                   sx={{
                     backgroundColor: "#fff",
                     // borderStyle: "none",
@@ -95,7 +107,9 @@ const SignUp = () => {
                   variant="outlined"
                   color="success"
                   required
-                  onChange={(e) => { setusername(e.target.value) }}
+                  onChange={(e) => {
+                    setusername(e.target.value);
+                  }}
                   sx={{
                     backgroundColor: "#fff",
                     // borderStyle: "none",
@@ -109,11 +123,14 @@ const SignUp = () => {
                 <TextField
                   id="outlined-basic"
                   type="email"
+                  name="email"
                   label="Email"
                   variant="outlined"
                   color="success"
                   required
-                  onChange={(e) => { setEmail(e.target.value) }}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                   sx={{
                     backgroundColor: "#fff",
                     // borderStyle: "none",
@@ -130,7 +147,9 @@ const SignUp = () => {
                   type="password"
                   color="success"
                   required
-                  onChange={(e) => { setPassword(e.target.value) }}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                   autoComplete="current-password"
                   sx={{
                     backgroundColor: "#fff",
@@ -146,7 +165,9 @@ const SignUp = () => {
                   color="success"
                   required
                   autoComplete="current-password"
-                  onChange={(e) => { setConfirmPassword(e.target.value) }}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                  }}
                   sx={{
                     backgroundColor: "#fff",
                     width: "100%",

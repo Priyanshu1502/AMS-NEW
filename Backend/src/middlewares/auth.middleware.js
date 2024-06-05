@@ -21,7 +21,7 @@ const UserAuthentication = asyncHandler(async (req, _, next) => {
     "-password -refreshToken"
   );
 
-  // console.log(userDetails)
+  // console.log(userDetails);
   if (!userDetails) {
     throw new apiError(401, "Invalid User Tokens!");
   }

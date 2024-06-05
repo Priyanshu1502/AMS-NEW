@@ -14,6 +14,7 @@ import {
   getUserDetailsByUsername,
 } from "../controller/users.controller.js";
 import { UserAuthentication } from "../middlewares/auth.middleware.js";
+import { upload } from "../middlewares/multer.middlewares.js";
 
 const router = Router();
 
@@ -33,9 +34,13 @@ router.route("/update-account").post(UserAuthentication, UpdateUserDetails);
 
 router.route("/delete-account").post(UserAuthentication, DeleteUserAccount);
 
-router.route("/update-avatar").post(UserAuthentication, UpdateUserAvatar);
+router
+  .route("/update-avatar")
+  .post(UserAuthentication, upload.single("avatar"), UpdateUserAvatar);
 
-router.route("/update-coverimage").post(UserAuthentication, UpdateCoverImage);
+router
+  .route("/update-coverimage")
+  .post(UserAuthentication, upload.single("coverImage"), UpdateCoverImage);
 
 router
   .route("/accounts/channel/:username")

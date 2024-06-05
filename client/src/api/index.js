@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiClient = axios.create({
+const apiClient = await axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
 });
@@ -19,12 +19,12 @@ const login = ({ email, password }) => {
   return apiClient.post("/users/login", { email, password });
 };
 
-const logoutUser = () => {
-  return apiClient.post("/users/logout");
+const logoutUser = async () => {
+  return await apiClient.post("/users/logout");
 };
 
-const getLogInUserDetails = () => {
-  return apiClient.get("/users/user-info");
+const getLogInUserDetails = async () => {
+  return await apiClient.get("/users/user-info");
 };
 
 const refreshToken = () => {
