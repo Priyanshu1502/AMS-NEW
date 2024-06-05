@@ -6,9 +6,8 @@ import RecommendedUser from "../components/RecommendedUser";
 import axios from "axios";
 
 const Home = () => {
-  
-  const userDetail = async ()=> await axios.get("/api/v1/users/user-info")
-  console.log(userDetail)
+  const userDetail = async () => await axios.get("/api/v1/users/user-info");
+  console.log(userDetail);
 
   return (
     <div className="bg-[#e4e4e4] w-full h-auto flex items-start justify-between lg:gap-x-0 md:gap-x-0 sm:gap-x-8 gap-x-4 relative">
@@ -20,6 +19,7 @@ const Home = () => {
       </div>
       <div className="w-[35%] h-auto lg:block md:hidden sm:hidden hidden sticky">
         <RecommendedUser userDetail={userDetail} />
+        //COMMENT FOR COMMIT
       </div>
     </div>
   );
