@@ -46,8 +46,7 @@ const LeftSideBar = (userDetail) => {
         })
         .then((data) => {
           // console.log(username);
-          return setUsername(data.username);
-          setAvatar(data.avatar);
+          return setUsername(data.username), setAvatar(data.avatar);
           // setCoverImage(data.coverImage)
         });
     } catch (err) {
