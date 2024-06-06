@@ -65,7 +65,7 @@ const LeftSideBar = (userDetail) => {
           className="z-0 rounded-t-lg w-96 h-28"
         />{" "}
         <img
-          src="userpic.jpg"
+          src={avatar || "userpic.jpg"}
           alt="profile-pic"
           className=" z-10 rounded-[50%] w-20 h-20 border-4 mt-[-3rem] aspect-square"
         />
