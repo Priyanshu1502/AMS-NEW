@@ -60,7 +60,7 @@ function Event() {
         </div>
       </div>
       {/* 3rd box  */}
-      <div className="m-10 bg-[#ffffff]  p-6 border-2 border-[#e1e0dc] rounded-xl">
+      {/* <div className="m-10 bg-[#ffffff]  p-6 border-2 border-[#e1e0dc] rounded-xl">
         <div className="flex flex-wrap justify-between">
           <h1 className="text-xl">Top Audio Events</h1>
           <h4 className=" text-blue-600 p-2 cursor-pointer">Show all</h4>
@@ -124,7 +124,7 @@ function Event() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* 4th box  */}
       <div></div>
     </>
