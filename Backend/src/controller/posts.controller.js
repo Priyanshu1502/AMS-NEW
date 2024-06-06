@@ -16,8 +16,26 @@ const getAllPost = asyncHandler(async (req, res) => {
       },
     },
     {
+      $lookup: {
+        from: "userdbs",
+        localField: "owner",
+        foreignField: "_id",
+        as: "usernameDetails",
+      },
+    },
+    {
+      $addFields: {
+        usernameDetails: "$usernameDetails",
+        username: "$usernameDetails.username",
+      },
+    },
+    {
       $project: {
-        owner: 0,
+        postImg: 1,
+        title: 1,
+        description: 1,
+        isPublished: 1,
+        username: 1,
       },
     },
   ]);

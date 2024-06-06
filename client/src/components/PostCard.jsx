@@ -54,14 +54,16 @@ const PostCard = () => {
       axios
         .get("api/v1/posts")
         .then((res) => {
-          console.log(res.data);
-          return res.data;
+          console.log(res.data.data);
+          return res.data.data;
         })
         .catch((err) => {
           console.log(err);
           navlink("/");
         })
-        .then(setData(data));
+        .then((data) => {
+          setData(data);
+        });
     } catch (err) {
       return console.log(err);
     }
@@ -96,7 +98,7 @@ const PostCard = () => {
               >
                 <div className="w-10 h-10 rounded-full object-cover p-[2px] bg-gradient-to-r from-[#2ed68a] to-white">
                   <img
-                    src={post.profileImg}
+                    src={post.postImg}
                     alt="post-image"
                     className="rounded-full w-full h-full object-cover p-[2.5px] bg-black"
                   />
