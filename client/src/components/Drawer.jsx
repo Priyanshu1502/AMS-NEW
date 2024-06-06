@@ -15,11 +15,36 @@ import { NavLink } from "react-router-dom";
 // import Home from "../../public/home new.json";
 import lottie from "lottie-web";
 import { defineElement } from "@lordicon/element";
+import axios from "axios";
 
 defineElement(lottie.loadAnimation);
 
 const Drawer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [username, setUsername] = useState([]);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    try {
+      axios
+        .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          // navlink(`/`);
+        })
+        .then((data) => {
+          // console.log(data.username);
+          setData(data);
+          setUsername(data.username);
+        });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
 
   const drawerSize = 10;
 
@@ -91,7 +116,7 @@ const Drawer = () => {
           </NavLink>
         </ListItem>
         <ListItem onClick={handleClick}>
-          <NavLink to="/profile">
+          <NavLink to={`/profile/${username}`}>
             <ListItemButton>
               <ListItemIcon>
                 <lord-icon

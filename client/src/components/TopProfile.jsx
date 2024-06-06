@@ -34,8 +34,12 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Camera from "./Camera";
+import ProfileData from "../assets/ProfileData";
 
-const TopProfile = () => {
+const TopProfile = (userChannelDetails) => {
+  // console.log(userChannelDetails.userDetails);
+  const userChannelData = userChannelDetails.userDetails;
+  const [channelData, setChannelData] = useState([]);
   const [background, setBackground] = useState(false);
   const [profilePic, setProfilePic] = useState(false);
   const [open, setOpen] = useState(false);
@@ -50,6 +54,7 @@ const TopProfile = () => {
   const [value, setValue] = React.useState(dayjs("2022-04-17"));
 
   useEffect(() => {
+    setChannelData(userChannelData);
     // Fetch countries from API
     fetch("https://countriesnow.space/api/v0.1/countries")
       .then((response) => response.json())
@@ -97,7 +102,7 @@ const TopProfile = () => {
     options: States,
     getOptionLabel: (option) => option.name,
   };
-
+  // console.log(Data);
   return (
     <div className="">
       {Data.map((profile) => (
@@ -108,7 +113,7 @@ const TopProfile = () => {
           {background ? (
             <div className="flex flex-row z-0 relative">
               <img
-                src={profile.backgroundImg}
+                src={userChannelData.avatar}
                 alt="background-img"
                 className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
               ></img>
@@ -119,8 +124,8 @@ const TopProfile = () => {
           ) : (
             <div className="flex flex-row z-0 relative">
               <img
-                src="/Simple Shiny.svg"
-                alt="background"
+                src={userChannelData.coverImage}
+                alt={profile.backgroundImg}
                 className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
               ></img>
               <div className="z-10 ml-[95%] mt-[23%] absolute">
@@ -137,16 +142,17 @@ const TopProfile = () => {
                 fontSize: { xs: "2rem", sm: "2rem", md: "2rem", lg: "3rem" },
                 zIndex: "20",
               }}
-              src="#"
-              alt={profile.name}
+              src={userChannelData.avatar}
+              alt={userChannelData.username}
             />
           </div>
           <h1 className="lg:mt-6 text-3xl lg:ml-20 mt-6 ml-4">
-            {profile.name}
+            {userChannelData.fullName}
           </h1>
           <p className="lg:ml-20 ml-4">{profile.bio}</p>
           <div className="flex item-center lg:ml-20 ml-4">
-            {profile.district},{profile.state},{profile.country}
+            {userChannelData.district},{userChannelData.state},
+            {userChannelData.country}
             <div className="bg-[#a3a3a3] h-1 w-1 rounded-full ml-2 mt-3"></div>
             <Button
               variant="plain"
@@ -193,7 +199,7 @@ const TopProfile = () => {
                       />
                       Email
                     </FormLabel>
-                    <h1 className="ml-7">{profile.email}</h1>
+                    <h1 className="ml-7">{userChannelData.email}</h1>
                   </FormControl>
                 </Stack>
               </ModalDialog>

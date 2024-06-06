@@ -3,7 +3,8 @@ import React from "react";
 import Data from "../assets/Data";
 import { useState } from "react";
 
-const RecommendedUser = () => {
+const RecommendedUser = (userChannelDetails) => {
+  const userChannelData = userChannelDetails.userDetails;
   const [isfollowed, setIsFollowed] = useState(false);
 
   const onFollow = (id) => {

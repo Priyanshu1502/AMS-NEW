@@ -1,5 +1,6 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
+import axios from "axios";
 
 function stringToColor(string) {
   let hash = 0;
@@ -30,18 +31,40 @@ function stringAvatar(name) {
   };
 }
 
-const ProfileAvatar = () => {
-  const isProfilePic = () => {
-    SetProfilePic(!profilePic);
-  };
-  const [profilePic, SetProfilePic] = React.useState(false);
+const ProfileAvatar = (userDetails) => {
+  // console.log(userDetails.userDetail);
+  const [profilePic, SetProfilePic] = useState();
+  useEffect(() => {
+    try {
+      axios
+        .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          // navlink(`/`);
+        })
+        .then((data) => {
+          // console.log(data);
+          SetProfilePic(data.avatar);
+        });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
   return (
     <>
-      {profilePic ? (
-        <Avatar {...stringAvatar("Kent Dodds")} />
+      {/* {profilePic ? (
+        <Avatar src={profilePic} alt="profile.jpg" />
       ) : (
-        <Avatar alt="Travis Howard" src="userpic.jpg" />
-      )}
+        <Avatar src={profilePic} alt="Travis Howard" />
+      )} */}
+
+      {/* <img src={profilePic} alt="userpic.jpg" /> */}
+
+      <Avatar src={profilePic} alt="userpic.jpg" />
     </>
   );
 };

@@ -351,6 +351,7 @@ const UpdateCoverImage = asyncHandler(async (req, res) => {
 
 const getUserChannelDetails = asyncHandler(async (req, res) => {
   const { username } = req.params;
+  // console.log(username);
   if (!username) {
     throw new apiError(400, " username is missing!");
   }

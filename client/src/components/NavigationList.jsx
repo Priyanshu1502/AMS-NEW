@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Box,
@@ -10,12 +10,36 @@ import {
   SwipeableDrawer,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 
 const handleClick = (e) => {
   e.preventDefault();
 };
 
 const NavigationList = () => {
+  const [username, setUsername] = useState([]);
+
+  useEffect(() => {
+    try {
+      axios
+        .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          // navlink(`/`);
+        })
+        .then((data) => {
+          // console.log(data.username);
+          setUsername(data.username);
+        });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
+
   return (
     <>
       {/* <ul className="flex flex-row item-center gap-[4vw]">
@@ -104,7 +128,7 @@ const NavigationList = () => {
             </NavLink>
           </ListItem>
           <ListItem onClick={handleClick}>
-            <NavLink to="/profile">
+            <NavLink to={`/profile/${username}`}>
               <ListItemButton>
                 <ListItemIcon>
                   <lord-icon
