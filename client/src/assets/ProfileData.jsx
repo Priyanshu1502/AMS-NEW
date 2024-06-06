@@ -32,9 +32,12 @@ const ProfileData = [
     achivDateStart: "15 May 2023",
     achivDateEnd: "23 May 2023",
     notification: "event #1 for the alumni's",
+    caption: "first post",
   },
   {
     id: 2,
+    name: "Priyanshu Bhatt",
+    bio: "Alumni batch 2024",
     comment1: "loved this post",
     comment2: "loved this post",
     profileImg: "https://source.unsplash.com/random/?kitchen",
@@ -60,6 +63,7 @@ const ProfileData = [
     district: "Dehradun",
     state: "Uttarakhand",
     country: "India",
+    caption: "first post",
   },
   {
     id: 3,
@@ -88,6 +92,7 @@ const ProfileData = [
     district: "Dehradun",
     state: "Uttarakhand",
     country: "India",
+    caption: "first post",
   },
 ];
 

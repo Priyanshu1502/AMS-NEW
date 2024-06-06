@@ -10,8 +10,21 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  function ValidateEmail(input) {
+    var validRegex = "@";
+
+    if (input.includes(validRegex)) {
+      return true;
+    } else {
+      alert("Invalid email address '@' is missing!");
+      document.form1.email.focus();
+      return false;
+    }
+  }
+
   async function submit(e) {
     e.preventDefault();
+    ValidateEmail(email);
     try {
       await axios
         .post(
@@ -28,11 +41,13 @@ const SignIn = () => {
         });
     } catch (err) {
       if (err.response.status === 401) {
-        alert("your password is incorrect");
+        alert("Your password is incorrect");
       } else if (err.response.status === 404) {
         alert("All fields are required!");
       } else if (err.response.status === 500) {
         alert("Something wents wrong in Server!");
+      } else if (err.response.status === 400) {
+        alert("Please provide a valid email address");
       }
     }
   }

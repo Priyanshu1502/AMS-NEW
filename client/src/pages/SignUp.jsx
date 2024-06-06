@@ -176,7 +176,6 @@ const SignUp = () => {
               </div>
               <div className="mt-5">
                 <FormControlLabel
-                  required
                   control={<CheckBox />}
                   label="I accept the Terms of Use and Privacy Policy"
                 />

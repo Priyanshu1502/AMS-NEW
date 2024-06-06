@@ -11,32 +11,33 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PeopleIcon from "@mui/icons-material/People";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import React from "react";
+import { React, useEffect } from "react";
 import EmojiEvents from "@mui/icons-material/EmojiEvents";
 import { getLogInUserDetails } from "../api/index.js";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const LeftSideBar = (userDetail) => {
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  // const [selectedIndex, setSelectedIndex] = React.useState(1);
   const navlink = useNavigate();
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
-  };
+  // const handleListItemClick = (event, index) => {
+  //   setSelectedIndex(index);
+  // };
   const [username, setUsername] = useState([]);
-  const [email, setEmail] = useState([]);
-  const [fullName, setFullName] = useState([]);
-  const [education, setEducation] = useState([]);
-  const [skill, setSkill] = useState([]);
-  const [avatar, setAvatar] = useState([]);
-  const [coverImage, setCoverImage] = useState([]);
+  // const [email, setEmail] = useState([]);
+  // const [fullName, setFullName] = useState([]);
+  // const [education, setEducation] = useState([]);
+  // const [skill, setSkill] = useState([]);
+  // const [avatar, setAvatar] = useState([]);
+  // const [coverImage, setCoverImage] = useState([]);
 
   useEffect(() => {
     try {
       axios
         .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
         .then((res) => {
+          // console.log(res.data.data);
           return res.data.data;
         })
         .catch((error) => {
@@ -45,11 +46,9 @@ const LeftSideBar = (userDetail) => {
         })
         .then((data) => {
           // console.log(username);
-          return (
-            setUsername(data.username),
-            setAvatar(data.avatar),
-            setCoverImage(data.coverImage)
-          );
+          return setUsername(data.username);
+          // setAvatar(data.avatar)
+          // setCoverImage(data.coverImage)
         });
     } catch (err) {
       return console.log(err);
@@ -84,8 +83,8 @@ const LeftSideBar = (userDetail) => {
         <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
           <List component="nav" aria-label="main mailbox folders">
             <ListItemButton
-              selected={selectedIndex === 0}
-              onClick={(event) => handleListItemClick(event, 0)}
+            // selected={selectedIndex === 0}
+            // onClick={(event) => handleListItemClick(event, 0)}
             >
               <ListItemIcon>
                 <PeopleIcon />
@@ -93,8 +92,8 @@ const LeftSideBar = (userDetail) => {
               <ListItemText primary="Friends" />
             </ListItemButton>
             <ListItemButton
-              selected={selectedIndex === 1}
-              onClick={(event) => handleListItemClick(event, 1)}
+            // selected={selectedIndex === 1}
+            // onClick={(event) => handleListItemClick(event, 1)}
             >
               <ListItemIcon>
                 <GroupsIcon />
@@ -102,23 +101,25 @@ const LeftSideBar = (userDetail) => {
               <ListItemText primary="Groups" />
             </ListItemButton>
             <ListItemButton
-              selected={selectedIndex === 2}
-              onClick={(event) => handleListItemClick(event, 2)}
+            // selected={selectedIndex === 2}
+            // onClick={(event) => handleListItemClick(event, 2)}
             >
               <ListItemIcon>
                 <BookmarkAddedIcon />
               </ListItemIcon>
               <ListItemText primary="Saved" />
             </ListItemButton>
-            <ListItemButton
-              selected={selectedIndex === 3}
-              onClick={(event) => handleListItemClick(event, 3)}
-            >
-              <ListItemIcon>
-                <EmojiEventsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Events" />
-            </ListItemButton>
+            <NavLink to="/event">
+              <ListItemButton
+              // selected={selectedIndex === 3}
+              // onClick={(event) => handleListItemClick(event, 3)}
+              >
+                <ListItemIcon>
+                  <EmojiEventsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Events" />
+              </ListItemButton>
+            </NavLink>
           </List>
         </Box>
       </div>
