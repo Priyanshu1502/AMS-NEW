@@ -21,6 +21,7 @@ import {
   Accordion,
   AccordionSummary,
   Autocomplete,
+  IconButton,
   TextField,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -31,6 +32,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import Camera from "./Camera";
 
 const TopProfile = () => {
   const [background, setBackground] = useState(false);
@@ -103,18 +106,26 @@ const TopProfile = () => {
           className="lg:ml-52 mt-4 lg:mt-4 lg:mr-0 lg:mb-0 sm:mr-2 sm:mb-2 sm:ml-2 md:mt-4 sm:mt-4 ml-2 mr-2 z-0 bg-white lg:w-[100%] lg:pb-4 rounded-3xl lg:max-w-[72rem] sm:max-w-screen-sm pb-4"
         >
           {background ? (
-            <img
-              src={profile.backgroundImg}
-              alt="background-img"
-              className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
-            ></img>
+            <div className="flex flex-row z-0 relative">
+              <img
+                src={profile.backgroundImg}
+                alt="background-img"
+                className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
+              ></img>
+              <div className="z-10 ml-[94%] mt-[26%] absolute">
+                <Camera />
+              </div>
+            </div>
           ) : (
-            <div className="">
+            <div className="flex flex-row z-0 relative">
               <img
                 src="/Simple Shiny.svg"
                 alt="background"
                 className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
               ></img>
+              <div className="z-10 ml-[95%] mt-[23%] absolute">
+                <Camera />
+              </div>
             </div>
           )}
           <div className="lg:mt-[-6rem] lg:ml-16 mt-[-4.5rem] ml-6">
@@ -124,6 +135,7 @@ const TopProfile = () => {
                 height: { xs: "7rem", lg: "9rem" },
                 border: "2px solid white",
                 fontSize: { xs: "2rem", sm: "2rem", md: "2rem", lg: "3rem" },
+                zIndex: "20",
               }}
               src="#"
               alt={profile.name}
