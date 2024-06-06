@@ -27,6 +27,7 @@ const getAllPost = asyncHandler(async (req, res) => {
       $addFields: {
         usernameDetails: "$usernameDetails",
         username: "$usernameDetails.username",
+        avatar: "$usernameDetails.avatar",
       },
     },
     {
@@ -36,6 +37,7 @@ const getAllPost = asyncHandler(async (req, res) => {
         description: 1,
         isPublished: 1,
         username: 1,
+        avatar: 1,
       },
     },
   ]);

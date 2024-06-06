@@ -98,7 +98,7 @@ const PostCard = () => {
               >
                 <div className="w-10 h-10 rounded-full object-cover p-[2px] bg-gradient-to-r from-[#2ed68a] to-white">
                   <img
-                    src={post.postImg}
+                    src={post.avatar}
                     alt="post-image"
                     className="rounded-full w-full h-full object-cover p-[2.5px] bg-black"
                   />
