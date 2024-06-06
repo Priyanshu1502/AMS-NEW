@@ -29,7 +29,7 @@ const LeftSideBar = (userDetail) => {
   // const [fullName, setFullName] = useState([]);
   // const [education, setEducation] = useState([]);
   // const [skill, setSkill] = useState([]);
-  // const [avatar, setAvatar] = useState([]);
+  const [avatar, setAvatar] = useState([]);
   // const [coverImage, setCoverImage] = useState([]);
 
   useEffect(() => {
@@ -46,8 +46,7 @@ const LeftSideBar = (userDetail) => {
         })
         .then((data) => {
           // console.log(username);
-          return setUsername(data.username);
-          // setAvatar(data.avatar)
+          return setUsername(data.username), setAvatar(data.avatar);
           // setCoverImage(data.coverImage)
         });
     } catch (err) {
@@ -64,8 +63,8 @@ const LeftSideBar = (userDetail) => {
           className="z-0 rounded-t-lg w-96 h-28"
         />{" "}
         <img
-          src="userpic.jpg"
-          alt="profile-pic"
+          src={avatar}
+          alt="profile"
           className=" z-10 rounded-[50%] w-20 h-20 border-4 mt-[-3rem] aspect-square"
         />
       </div>
