@@ -52,9 +52,9 @@ const PostCard = () => {
   useEffect(() => {
     try {
       axios
-        .get("api/v1/posts")
+        .get("api/v1/posts/all-posts")
         .then((res) => {
-          console.log(res.data.data);
+          // console.log(res.data.data);
           return res.data.data;
         })
         .catch((err) => {
@@ -99,7 +99,7 @@ const PostCard = () => {
                 <div className="w-10 h-10 rounded-full object-cover p-[2px] bg-gradient-to-r from-[#2ed68a] to-white">
                   <img
                     src={post.avatar}
-                    alt="post-image"
+                    alt="user-image"
                     className="rounded-full w-full h-full object-cover p-[2.5px] bg-black"
                   />
                 </div>

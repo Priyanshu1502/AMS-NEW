@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getAllPost,
+  getAllUsersPost,
   publishAPost,
   getPostById,
   updatePost,
@@ -14,7 +15,7 @@ const router = Router();
 router.use(UserAuthentication); // Apply verifyJWT middleware to all routes in this file
 
 router.route("/").get(getAllPost).post(upload.single("postImg"), publishAPost);
-
+router.route("/all-posts").get(getAllUsersPost);
 router
   .route("/:PostId")
   .get(getPostById)

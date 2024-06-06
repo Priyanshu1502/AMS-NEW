@@ -6,6 +6,43 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 //This fetched all the User Post whose LoggedIn.
+const getAllUsersPost = asyncHandler(async (req, res) => {
+  const posts = await PostDB.aggregate([
+    {
+      $lookup: {
+        from: "userdbs",
+        localField: "owner",
+        foreignField: "_id",
+        as: "usernameDetails",
+      },
+    },
+    {
+      $addFields: {
+        usernameDetails: "$usernameDetails",
+        username: "$usernameDetails.username",
+        avatar: "$usernameDetails.avatar",
+      },
+    },
+    {
+      $project: {
+        postImg: 1,
+        title: 1,
+        description: 1,
+        isPublished: 1,
+        username: 1,
+        avatar: 1,
+      },
+    },
+  ]);
+
+  if (!posts) {
+    throw new apiError(404, "No Post Available!");
+  }
+  res
+    .status(200)
+    .json(new apiResponse(200, "All user Post fetched Successfully", posts));
+});
+
 const getAllPost = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
@@ -185,6 +222,7 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
 
 export {
   getAllPost,
+  getAllUsersPost,
   publishAPost,
   getPostById,
   updatePost,
