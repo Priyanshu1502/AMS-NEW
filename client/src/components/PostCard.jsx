@@ -110,7 +110,7 @@ const PostCard = () => {
                 <p className="text-black text-sm font-medium">{post.time}</p>
               </div>
             </div>
-            <div className="">
+            <div className="post">
               <IconButton
                 aria-label="more"
                 id="long-button"
