@@ -15,8 +15,8 @@ import React, { useEffect } from "react";
 import EmojiEvents from "@mui/icons-material/EmojiEvents";
 import { getLogInUserDetails } from "../api/index.js";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const LeftSideBar = (userDetail) => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -32,29 +32,29 @@ const LeftSideBar = (userDetail) => {
   const [avatar, setAvatar] = useState([]);
   const [coverImage, setCoverImage] = useState([]);
 
-  useEffect(() => {
-    try {
-      axios
-        .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
-        .then((res) => {
-          return res.data.data;
-        })
-        .catch((error) => {
-          console.log(error);
-          navlink(`/`);
-        })
-        .then((data) => {
-          // console.log(username);
-          return (
-            setUsername(data.username),
-            setAvatar(data.avatar),
-            setCoverImage(data.coverImage)
-          );
-        });
-    } catch (err) {
-      return console.log(err);
-    }
-  }, [userDetail]);
+  // useEffect(() => {
+  //   try {
+  //     axios
+  //       .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
+  //       .then((res) => {
+  //         return res.data.data;
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         navlink(`/`);
+  //       })
+  //       .then((data) => {
+  //         // console.log(username);
+  //         return (
+  //           setUsername(data.username),
+  //           setAvatar(data.avatar),
+  //           setCoverImage(data.coverImage)
+  //         );
+  //       });
+  //   } catch (err) {
+  //     return console.log(err);
+  //   }
+  // }, [userDetail]);
 
   return (
     <div className="flex flex-col bg-white rounded">
@@ -110,15 +110,17 @@ const LeftSideBar = (userDetail) => {
               </ListItemIcon>
               <ListItemText primary="Saved" />
             </ListItemButton>
-            <ListItemButton
-              selected={selectedIndex === 3}
-              onClick={(event) => handleListItemClick(event, 3)}
-            >
-              <ListItemIcon>
-                <EmojiEventsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Events" />
-            </ListItemButton>
+            <NavLink to="/event">
+              <ListItemButton
+                selected={selectedIndex === 3}
+                onClick={(event) => handleListItemClick(event, 3)}
+              >
+                <ListItemIcon>
+                  <EmojiEventsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Events" />
+              </ListItemButton>
+            </NavLink>
           </List>
         </Box>
       </div>

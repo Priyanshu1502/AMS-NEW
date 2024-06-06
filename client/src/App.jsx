@@ -15,6 +15,7 @@ import ViewSkills from "./pages/ViewSkills";
 import ViewEducation from "./pages/ViewEducation";
 import ViewPost from "./pages/ViewPost";
 import ViewExperience from "./pages/ViewExperience";
+import Event from "./pages/Event";
 // import Footer from "./components/Footer";
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/profile/activity" element={<ViewPost />} />
         <Route path="/profile/achivement" element={<ViewAchivement />} />
         <Route path="/profile/experience" element={<ViewExperience />} />
+        <Route path="/pages/Event" element={<Event />} />
       </Routes>
     </BrowserRouter>
   );
