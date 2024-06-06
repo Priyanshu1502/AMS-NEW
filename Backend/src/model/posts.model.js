@@ -8,7 +8,7 @@ const postsSchema = new Schema(
     },
     title: {
       type: String,
-      required: true,
+      // required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,

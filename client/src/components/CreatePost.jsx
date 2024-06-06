@@ -1,14 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Data from "../assets/ProfileData";
 import { Button, Divider } from "@mui/material";
 import Modal from "@mui/joy/Modal";
-
+import axios from "axios";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import EventIcon from "@mui/icons-material/Event";
 import CreatePostModal from "./CreatePostModal";
 
 const CreatePost = () => {
   const [post, setPost] = useState(false);
+  const [description, setDescription] = useState([]);
+
+  useEffect(() => {
+    try {
+      axios
+        .post(
+          "/api/v1/posts/",
+          { postImg: post, description },
+          { withCredentials: true }
+        ) // by using withCredentials cookies are added.
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          navlink(`/`);
+        })
+        .then((data) => {
+          // console.log(username);
+          // return setUsername(data.username), setAvatar(data.avatar);
+          setCoverImage(data);
+        });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
 
   return (
     <div className="bg-white lg:w-[85%] shadow-lg mt-4 rounded lg:pt-0 pt-2">

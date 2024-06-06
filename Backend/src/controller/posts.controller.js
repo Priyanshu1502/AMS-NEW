@@ -91,8 +91,8 @@ const publishAPost = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
   const PostImgPath = req?.file?.path;
 
-  if (!(title && description)) {
-    throw new apiError(404, "Title and description is required!");
+  if (!(title || description)) {
+    throw new apiError(404, "Title or description is required!");
   }
   if (PostImgPath) {
     var postImg = await uploadOnCloudinary(PostImgPath);
