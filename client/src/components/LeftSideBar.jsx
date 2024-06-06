@@ -11,7 +11,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PeopleIcon from "@mui/icons-material/People";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import React, { useEffect } from "react";
+import React from "react";
 import EmojiEvents from "@mui/icons-material/EmojiEvents";
 import { getLogInUserDetails } from "../api/index.js";
 import axios from "axios";

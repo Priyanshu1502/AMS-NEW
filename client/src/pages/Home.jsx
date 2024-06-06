@@ -19,7 +19,6 @@ const Home = () => {
       </div>
       <div className="w-[35%] h-auto lg:block md:hidden sm:hidden hidden sticky">
         <RecommendedUser userDetail={userDetail} />
-        //COMMENT FOR COMMIT
       </div>
     </div>
   );
