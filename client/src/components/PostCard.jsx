@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import Data from "../assets/Data";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,10 +14,11 @@ import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import Snackbar from "@mui/material/Snackbar";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
 const PostCard = () => {
   const drawerBleeding = 56;
-
+  const [data, setData] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -47,6 +47,26 @@ const PostCard = () => {
     setOpenSnackbar(false);
   };
 
+  const navlink = useNavigate();
+
+  useEffect(() => {
+    try {
+      axios
+        .get("api/v1/posts")
+        .then((res) => {
+          console.log(res.data);
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          navlink("/");
+        })
+        .then(setData(data));
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
+
   const action = (
     <React.Fragment>
       <Button color="secondary" size="small" onClick={handleClose}>
@@ -65,7 +85,7 @@ const PostCard = () => {
 
   return (
     <div>
-      {Data.map((post) => (
+      {data.map((post) => (
         <div key={post.id} className="w-full h-auto mb-6">
           {/* pp and username, time */}
           <div className="w-full h-auto flex items-center justify-between mb-2">
@@ -77,7 +97,7 @@ const PostCard = () => {
                 <div className="w-10 h-10 rounded-full object-cover p-[2px] bg-gradient-to-r from-[#2ed68a] to-white">
                   <img
                     src={post.profileImg}
-                    alt={post.profileImg}
+                    alt="post-image"
                     className="rounded-full w-full h-full object-cover p-[2.5px] bg-black"
                   />
                 </div>
@@ -121,7 +141,7 @@ const PostCard = () => {
           <div className="w-full lg:max-h-[75vh] md:max-h-[70vh] sm:max-h-[65vh] max-h-[50vh] lg:h-[70vh] md:h-[60vh] sm:h-[50vh] h-[50vh] lg:min-h-[65vh] md:min-h-[55vh] sm:min-h-[50vh] min-h-[45vh] border border-black rounded overflow-hidden mb-3">
             <img
               src={post.postImg}
-              alt={post.caption}
+              alt="post-img"
               className="w-full object-cover rounded h-full "
             />
           </div>
