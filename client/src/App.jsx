@@ -37,7 +37,7 @@ const App = () => {
         <Route path="/profile/activity" element={<ViewPost />} />
         <Route path="/profile/achivement" element={<ViewAchivement />} />
         <Route path="/profile/experience" element={<ViewExperience />} />
-        <Route path="/pages/Event" element={<Event />} />
+        <Route path="/Event" element={<Event />} />
       </Routes>
     </BrowserRouter>
   );
