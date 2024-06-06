@@ -50,7 +50,7 @@ const CreatePost = () => {
             <div className="ml-4">
               <input
                 placeholder="Create a post"
-                className="lg:w-[34rem] h-12 border-gray-400 border-[1px] sm:w-[10rem] w-[16rem]"
+                className=" cursor-pointer lg:w-[34rem] h-12 border-gray-400 border-[1px] sm:w-[10rem] w-[16rem]"
                 onClick={() => {
                   setPost(!post);
                 }}
@@ -65,7 +65,7 @@ const CreatePost = () => {
                 alignItems: "center",
               }}
             >
-              <CreatePostModal />
+              <CreatePostModal setPost={setPost} />
             </Modal>
           </div>
           <div className="flex flex-row justify-between ml-28 mr-28 mb-2">

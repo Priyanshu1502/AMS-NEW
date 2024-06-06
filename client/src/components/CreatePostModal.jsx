@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import ModalClose from "@mui/joy/ModalClose";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
@@ -8,32 +8,38 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import EventIcon from "@mui/icons-material/Event";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import ImageIcon from "@mui/icons-material/Image";
 import { styled } from "@mui/material/styles";
 import ImageInput from "./ImageInput";
 import { Modal } from "@mui/joy";
 import ImageCropper from "./ImageCropper";
 import PostWithImage from "./PostWithImage";
+import axios from "axios";
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+// const VisuallyHiddenInput = styled("input")({
+//   clip: "rect(0 0 0 0)",
+//   clipPath: "inset(50%)",
+//   height: 1,
+//   overflow: "hidden",
+//   position: "absolute",
+//   bottom: 0,
+//   left: 0,
+//   whiteSpace: "nowrap",
+//   width: 1,
+// });
 
-const CreatePostModal = () => {
+const InputRef = forwardRef(() => {});
+
+const CreatePostModal = ({ setPost }) => {
   const [openPicker, setOpenPicker] = useState(false);
-  const [text, setText] = useState("");
   const [image, setImage] = useState("");
+  const [text, setText] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [imgAfterCrop, setImageAfterCrop] = useState("");
-  const [currentPage, setCurrentPage] = useState("choose-img");
-  const [post, setPost] = useState(false);
+  // const [currentPage, setCurrentPage] = useState("choose-img");
+  // const [post, setPost] = useState(false);
+  const inputRef = React.createRef();
+  const [close, setClose] = useState();
 
   const modalOpen = () => {
     if (cropDone == dataUrl) {
@@ -41,45 +47,64 @@ const CreatePostModal = () => {
     }
   };
 
-  const cropDone = (imgCropped) => {
-    const canvasEle = document.createElement("canvas");
-    canvasEle.width = imgCropped.width;
-    canvasEle.height = imgCropped.height;
-
-    const context = canvasEle.getContext("2d");
-
-    let imageObj1 = new Image();
-    imageObj1.src = image;
-    imageObj1.onload = function () {
-      context.drawImage(
-        imageObj1,
-        imgCropped.x,
-        imgCropped.y,
-        imgCropped.width,
-        imgCropped.height,
-        0,
-        0,
-        imgCropped.width,
-        imgCropped.height
-      );
-      const dataURL = canvasEle.toDataURL("image/jpeg");
-      console.log("data", dataURL);
-
-      setImageAfterCrop(dataURL);
-      setCurrentPage("img-cropped");
-    };
+  const closeModal = () => {
+    setClose(setPost(false));
   };
 
-  const cropCancel = () => {
-    setCurrentPage("choose-img");
-    setImage("");
+  const upload = (e) => {
+    const file = e.target.files?.[0];
+    setImage(file);
+  };
+  console.log(image);
+  console.log(text);
+
+  const formData = new FormData();
+  formData.append("text", text);
+  formData.append("image", image);
+
+  const handleUpload = () => {
+    axios.post("", formData);
   };
 
-  const onImageSelected = (selectedImg) => {
-    setImage(selectedImg);
-    setOpenModal(true);
-    setCurrentPage("crop-img");
-  };
+  // const cropDone = (imgCropped) => {
+  //   const canvasEle = document.createElement("canvas");
+  //   canvasEle.width = imgCropped.width;
+  //   canvasEle.height = imgCropped.height;
+
+  //   const context = canvasEle.getContext("2d");
+
+  //   let imageObj1 = new Image();
+  //   imageObj1.src = image;
+  //   imageObj1.onload = function () {
+  //     context.drawImage(
+  //       imageObj1,
+  //       imgCropped.x,
+  //       imgCropped.y,
+  //       imgCropped.width,
+  //       imgCropped.height,
+  //       0,
+  //       0,
+  //       imgCropped.width,
+  //       imgCropped.height
+  //     );
+  //     const dataURL = canvasEle.toDataURL("image/jpeg");
+  //     console.log("data", dataURL);
+
+  //     setImageAfterCrop(dataURL);
+  //     setCurrentPage("img-cropped");
+  //   };
+  // };
+
+  // const cropCancel = () => {
+  //   setCurrentPage("choose-img");
+  //   setImage("");
+  // };
+
+  // const onImageSelected = (selectedImg) => {
+  //   setImage(selectedImg);
+  //   setOpenModal(true);
+  //   setCurrentPage("crop-img");
+  // };
 
   const addEmoji = (e) => {
     const sym = e.unified.split("_");
@@ -90,8 +115,12 @@ const CreatePostModal = () => {
     setText(text + emoji);
   };
 
+  const uploadImage = () => {
+    inputRef.current.click();
+  };
+
   return (
-    <div>
+    <React.Fragment>
       <Sheet
         variant="outlined"
         sx={{
@@ -101,7 +130,8 @@ const CreatePostModal = () => {
           msOverflowX: "none",
           msOverflowY: "scroll",
           maxHeight: "100vh",
-          maxWidth: "100vh",
+          maxWidth: "100vw",
+          width: "50rem",
         }}
       >
         <ModalClose variant="plain" sx={{ m: 1 }} />
@@ -117,27 +147,26 @@ const CreatePostModal = () => {
         >
           What's on your mind.
         </Typography>
-
-        <TextField
-          multiline
-          variant="standard"
-          rows={10}
-          fullWidth
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-
-        <Button
-          startIcon={<InsertEmoticonIcon />}
-          onClick={() => setOpenPicker(!openPicker)}
-        ></Button>
-        {openPicker && (
-          <div className="">
-            <Picker data={data} onEmojiSelect={addEmoji} maxFrequentRows={0} />
+        <form onSubmit={closeModal}>
+          <div className="max-h-[30rem] max-w-[50rem] overflow-x:hidden overflow-y-scroll">
+            <TextField
+              multiline
+              variant="standard"
+              rows={10}
+              fullWidth
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+            {image ? (
+              <div className="mt-4 rounded-md border-[1px] border-gray-200">
+                <img src={URL.createObjectURL(image)} alt="upload-image"></img>
+              </div>
+            ) : (
+              <div className="hidden"></div>
+            )}
           </div>
-        )}
-        <div className="mt-3 flex flex-row">
-          <div>
+          <div className="mt-3 flex flex-row max-h-[3rem]">
+            {/* <div>
             {currentPage === "choose-img" ? (
               <ImageInput onImageSelected={onImageSelected} />
             ) : currentPage === "crop-img" ? (
@@ -163,26 +192,50 @@ const CreatePostModal = () => {
                 <img src={imgAfterCrop} alt="cropped-img"></img>
               </div>
             )}
+          </div> */}
+            <Button
+              startIcon={<InsertEmoticonIcon />}
+              onClick={() => setOpenPicker(!openPicker)}
+            ></Button>
+            {openPicker && (
+              <div className="">
+                <Picker
+                  data={data}
+                  onEmojiSelect={addEmoji}
+                  maxFrequentRows={0}
+                />
+              </div>
+            )}
+            <Button startIcon={<ImageIcon />} onClick={uploadImage}></Button>
+            <input
+              onChange={upload}
+              type="file"
+              accept="image/*"
+              ref={inputRef}
+              className="hidden"
+            ></input>
+            <Button startIcon={<EventIcon />}></Button>
+            {/* <Button startIcon={<InsertDriveFileIcon />}></Button> */}
           </div>
-
-          <Button startIcon={<EventIcon />}></Button>
-          <Button startIcon={<InsertDriveFileIcon />}></Button>
-        </div>
-        <Divider />
-        <div className="flex items-center">
-          <Button
-            variant="contained"
-            sx={{
-              marginTop: "1rem",
-              width: "10rem",
-              marginLeft: "12rem",
-            }}
-          >
-            Post
-          </Button>
-        </div>
+          <Divider />
+          <div className="flex items-center">
+            <Button
+              onClick={handleUpload}
+              ModalClose
+              variant="contained"
+              type="submit"
+              sx={{
+                marginTop: "1rem",
+                width: "10rem",
+                marginLeft: "40rem",
+              }}
+            >
+              Post
+            </Button>
+          </div>
+        </form>
       </Sheet>
-    </div>
+    </React.Fragment>
   );
 };
 
