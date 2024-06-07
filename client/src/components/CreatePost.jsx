@@ -45,7 +45,7 @@ const CreatePost = () => {
     <div className="bg-white lg:w-[85%] shadow-lg mt-4 rounded lg:pt-0 pt-2">
       {Data.slice(1, 2).map((profile) => (
         <div>
-          <div className="flex flex-row mt-4 ml-6 mb-2 border-gray ">
+          <div className="flex flex-row mt-4 ml-6 mb-6 border-gray ">
             <img
               src={profile.profileImg}
               alt="profileImg"
@@ -70,7 +70,7 @@ const CreatePost = () => {
               <CreatePostModal setPost={setPost} />
             </Modal>
           </div>
-          <div className="flex flex-row justify-between ml-20 mr-28 mb-2">
+          {/* <div className="flex flex-row justify-between ml-20 mr-28 mb-2">
             <Button
               varient="outlined"
               startIcon={<PermMediaIcon />}
@@ -92,8 +92,8 @@ const CreatePost = () => {
               }}
             >
               Event
-            </Button>
-          </div>
+            </Button> 
+           </div> */}
         </div>
       ))}
     </div>

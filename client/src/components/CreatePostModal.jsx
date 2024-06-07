@@ -82,7 +82,7 @@ const CreatePostModal = ({ setPost }) => {
     setImage(file);
   };
   // console.log(image);
-  console.log(description);
+  // console.log(description);
 
   const formData = new FormData();
   formData.append("text", description);
@@ -173,7 +173,7 @@ const CreatePostModal = ({ setPost }) => {
         >
           What's on your mind.
         </Typography>
-        <form onSubmit={closeModal}>
+        <form>
           <div className="max-h-[30rem] max-w-[50rem] overflow-x:hidden overflow-y-scroll">
             <TextField
               multiline
@@ -252,6 +252,7 @@ const CreatePostModal = ({ setPost }) => {
               ModalClose
               variant="contained"
               type="submit"
+              onSubmit={closeModal}
               sx={{
                 marginTop: "1rem",
                 width: "10rem",
