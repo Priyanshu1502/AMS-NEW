@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState } from "react";
+import React, { forwardRef, useRef, useState, useEffect } from "react";
 import ModalClose from "@mui/joy/ModalClose";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
@@ -33,14 +33,40 @@ const InputRef = forwardRef(() => {});
 const CreatePostModal = ({ setPost }) => {
   const [openPicker, setOpenPicker] = useState(false);
   const [image, setImage] = useState("");
-  const [text, setText] = useState("");
+  const [description, setDescription] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [imgAfterCrop, setImageAfterCrop] = useState("");
-  // const [currentPage, setCurrentPage] = useState("choose-img");
-  // const [post, setPost] = useState(false);
+
   const inputRef = React.createRef();
   const [close, setClose] = useState();
 
+  useEffect(() => {
+    try {
+      axios
+        .post(
+          "/api/v1/posts/",
+          {
+            postImg: image,
+            description: description,
+          },
+          { withCredentials: true }
+        ) // by using withCredentials cookies are added.
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((error) => {
+          // console.log(error);
+          // navlink(`/`);
+        })
+        .then((data) => {
+          // console.log(data);
+          // SetProfilePic(data);
+        });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
   const modalOpen = () => {
     if (cropDone == dataUrl) {
       setPost(true);
@@ -55,11 +81,11 @@ const CreatePostModal = ({ setPost }) => {
     const file = e.target.files?.[0];
     setImage(file);
   };
-  console.log(image);
-  console.log(text);
+  // console.log(image);
+  console.log(description);
 
   const formData = new FormData();
-  formData.append("text", text);
+  formData.append("text", description);
   formData.append("image", image);
 
   const handleUpload = () => {
@@ -108,11 +134,11 @@ const CreatePostModal = ({ setPost }) => {
 
   const addEmoji = (e) => {
     const sym = e.unified.split("_");
-    console.log(sym);
+    // console.log(sym);
     const codeArray = [];
     sym.forEach((element) => codeArray.push("0x" + element));
     let emoji = String.fromCodePoint(...codeArray);
-    setText(text + emoji);
+    setText(description + emoji);
   };
 
   const uploadImage = () => {
@@ -154,8 +180,10 @@ const CreatePostModal = ({ setPost }) => {
               variant="standard"
               rows={10}
               fullWidth
-              value={text}
-              onChange={(e) => setText(e.target.value)}
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
             />
             {image ? (
               <div className="mt-4 rounded-md border-[1px] border-gray-200">
