@@ -62,9 +62,9 @@ const CreatePostModal = ({ setPost }) => {
   formData.append("text", text);
   formData.append("image", image);
 
-  const handleUpload = () => {
-    axios.post("", formData);
-  };
+  // const handleUpload = () => {
+  //   axios.post("", formData);
+  // };
 
   // const cropDone = (imgCropped) => {
   //   const canvasEle = document.createElement("canvas");

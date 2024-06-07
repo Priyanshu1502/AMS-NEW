@@ -114,7 +114,7 @@ const TopProfile = (userChannelDetails) => {
             <div className="flex flex-row z-0 relative">
               <img
                 src={userChannelData.avatar}
-                alt="background-img"
+                alt={userChannelData.avatar}
                 className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
               ></img>
               <div className="z-10 ml-[94%] mt-[26%] absolute">
@@ -124,7 +124,7 @@ const TopProfile = (userChannelDetails) => {
           ) : (
             <div className="flex flex-row z-0 relative">
               <img
-                src={userChannelData.coverImage}
+                src="/Simple Shiny.svg"
                 alt={profile.backgroundImg}
                 className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
               ></img>

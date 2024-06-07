@@ -11,6 +11,10 @@ const CreatePost = () => {
   const [post, setPost] = useState(false);
   const [description, setDescription] = useState([]);
 
+  const postSetter = () => {
+    setPost(!post);
+  };
+
   // useEffect(() => {
   //   try {
   //     axios
@@ -51,9 +55,7 @@ const CreatePost = () => {
               <input
                 placeholder="Create a post"
                 className=" cursor-pointer lg:w-[34rem] h-12 border-gray-400 border-[1px] sm:w-[10rem] w-[16rem]"
-                onClick={() => {
-                  setPost(!post);
-                }}
+                onClick={postSetter}
               ></input>
             </div>
             <Modal
@@ -68,13 +70,15 @@ const CreatePost = () => {
               <CreatePostModal setPost={setPost} />
             </Modal>
           </div>
-          <div className="flex flex-row justify-between ml-28 mr-28 mb-2">
+          <div className="flex flex-row justify-between ml-20 mr-28 mb-2">
             <Button
               varient="outlined"
               startIcon={<PermMediaIcon />}
               sx={{
                 color: "black",
+                width: "15rem",
               }}
+              // onClick={setPost(true)}
             >
               Media
             </Button>
@@ -84,6 +88,7 @@ const CreatePost = () => {
               startIcon={<EventIcon />}
               sx={{
                 color: "black",
+                width: "15rem",
               }}
             >
               Event
