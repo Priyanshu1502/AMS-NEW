@@ -30,7 +30,8 @@ const LeftSideBar = (userDetail) => {
   // const [education, setEducation] = useState([]);
   // const [skill, setSkill] = useState([]);
   const [avatar, setAvatar] = useState([]);
-  // const [coverImage, setCoverImage] = useState([]);
+  const [coverImage, setCoverImage] = useState([]);
+  const [bio, setBio] = useState([]);
 
   useEffect(() => {
     try {
@@ -46,7 +47,11 @@ const LeftSideBar = (userDetail) => {
         })
         .then((data) => {
           // console.log(username);
-          return setUsername(data.username), setAvatar(data.avatar);
+          return (
+            setUsername(data.username),
+            setAvatar(data.avatar),
+            setCoverImage(data.coverImage)
+          );
           // setCoverImage(data.coverImage)
         });
     } catch (err) {
@@ -57,31 +62,49 @@ const LeftSideBar = (userDetail) => {
   return (
     <div className="flex flex-col bg-white rounded">
       <div className="flex flex-col justify-center items-center rounded">
-        <img
+        {coverImage ? (
+          <img
+            src={coverImage}
+            alt="background-img"
+            className="z-0 rounded-t-lg w-96 h-28"
+          />
+        ) : (
+          <img
+            src="Simple Shiny.svg"
+            alt="background-img"
+            className="z-0 rounded-t-lg w-96 h-28"
+          />
+        )}
+        {/* <img
           src="banner.jpg"
           alt="background-img"
           className="z-0 rounded-t-lg w-96 h-28"
-        />{" "}
-        <img
-          src={avatar}
-          alt="profile"
-          className=" z-10 rounded-[50%] w-20 h-20 border-4 mt-[-3rem] aspect-square"
-        />
+        /> */}
+        {avatar ? (
+          <img
+            src={avatar}
+            alt="profile"
+            className=" z-10 rounded-[50%] w-20 h-20 border-4 mt-[-3rem] aspect-square"
+          />
+        ) : (
+          <img
+            src="/people.svg"
+            alt="profile"
+            className=" z-10 rounded-[50%] bg-white w-20 h-20 border-4 mt-[-3rem] aspect-square"
+          />
+        )}
       </div>
       <div className="flex justify-center item-center px-3 pb-4">
         <h1 className="font-black text-xl">{username}</h1>
       </div>
       <div className="flex justify-center item-center px-3 pb-4">
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
-        </p>
+        <p>{bio}</p>
       </div>
       <Divider />
       <div>
         <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
           <List component="nav" aria-label="main mailbox folders">
-            <ListItemButton
+            {/* <ListItemButton
             // selected={selectedIndex === 0}
             // onClick={(event) => handleListItemClick(event, 0)}
             >
@@ -89,8 +112,8 @@ const LeftSideBar = (userDetail) => {
                 <PeopleIcon />
               </ListItemIcon>
               <ListItemText primary="Friends" />
-            </ListItemButton>
-            <ListItemButton
+            </ListItemButton> */}
+            {/* <ListItemButton
             // selected={selectedIndex === 1}
             // onClick={(event) => handleListItemClick(event, 1)}
             >
@@ -98,10 +121,10 @@ const LeftSideBar = (userDetail) => {
                 <GroupsIcon />
               </ListItemIcon>
               <ListItemText primary="Groups" />
-            </ListItemButton>
+            </ListItemButton> */}
             <ListItemButton
             // selected={selectedIndex === 2}
-            // onClick={(event) => handleListItemClick(event, 2)}
+            //</List>onClick={(event) => handleListItemClick(event, 2)}
             >
               <ListItemIcon>
                 <BookmarkAddedIcon />

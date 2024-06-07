@@ -186,6 +186,7 @@ const CreatePostModal = ({ setPost }) => {
           What's on your mind.
         </Typography>
         <form>
+        <form>
           <div className="max-h-[30rem] max-w-[50rem] overflow-x:hidden overflow-y-scroll">
             <TextField
               multiline

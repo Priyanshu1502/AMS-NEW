@@ -20,6 +20,7 @@ const PostCard = () => {
   const drawerBleeding = 56;
   const [data, setData] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [like, setLike] = useState(0);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,6 +32,7 @@ const PostCard = () => {
   const [isLiked, setIsLiked] = useState(false);
   const onLike = () => {
     setIsLiked(!isLiked);
+    setLike(like + (isLiked ? -1 : 1));
   };
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -213,7 +215,10 @@ const PostCard = () => {
             </div>
           </div>
           {/* like count */}
-          <div className="w-auto m">{post.likeCount} likes</div>
+          <div className="w-auto m">
+            {post.likeCount}
+            {like} likes
+          </div>
           {/* captions section */}
 
           {/*captions with username*/}
@@ -223,9 +228,6 @@ const PostCard = () => {
                 {post.username}
               </NavLink>
               {post.caption}
-              <NavLink to="/" className="font-medium text-sm me-2">
-                ...more
-              </NavLink>
             </div>
           </div>
           {/* comments count */}
