@@ -103,7 +103,6 @@ const CreatePostModal = ({ setPost }) => {
       return console.log(err);
     }
   };
-
   // const cropDone = (imgCropped) => {
   //   const canvasEle = document.createElement("canvas");
   //   canvasEle.width = imgCropped.width;
@@ -185,7 +184,6 @@ const CreatePostModal = ({ setPost }) => {
         >
           What's on your mind.
         </Typography>
-        <form>
         <form>
           <div className="max-h-[30rem] max-w-[50rem] overflow-x:hidden overflow-y-scroll">
             <TextField

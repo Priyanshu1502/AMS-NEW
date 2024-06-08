@@ -69,7 +69,7 @@ const PostCard = () => {
     } catch (err) {
       return console.log(err);
     }
-  }, []);
+  }, [data]);
 
   const action = (
     <React.Fragment>
@@ -107,11 +107,16 @@ const PostCard = () => {
                 </div>
               </Link>
               <div className="flex items-center gap-x-2">
-                <p className="text-black text-sm font-medium">
-                  {post.username}
-                </p>
+                <p className="text-black text-sm font-bold">{post.username}</p>
                 <div className="w-1 h-1 bg-black rounded-full"></div>
-                <p className="text-black text-sm font-medium">{post.time}</p>
+                <p className="text-black text-sm font-medium">
+                  {post.createdAt}
+                </p>
+              </div>
+              <div className="w-full h-auto flex items-center gap-x-1">
+                <h2 className="text-black text-sm font-medium ">
+                  {post.description}
+                </h2>
               </div>
             </div>
             <div className="post">
@@ -224,10 +229,9 @@ const PostCard = () => {
           {/*captions with username*/}
           <div className="w-full h-auto flex items-center gap-x-1">
             <div className="w-full h-auto text-sm text-grey-200 font-thin">
-              <NavLink to="/" className="font-medium text-sm me-2">
+              {/* <NavLink to="/" className="font-medium text-sm me-2">
                 {post.username}
-              </NavLink>
-              {post.caption}
+              </NavLink> */}
             </div>
           </div>
           {/* comments count */}

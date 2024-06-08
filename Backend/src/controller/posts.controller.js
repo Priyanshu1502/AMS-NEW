@@ -31,6 +31,12 @@ const getAllUsersPost = asyncHandler(async (req, res) => {
         isPublished: 1,
         username: 1,
         avatar: 1,
+        createdAt: 1,
+      },
+    },
+    {
+      $sort: {
+        createdAt: -1,
       },
     },
   ]);
@@ -91,7 +97,7 @@ const publishAPost = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
   const PostImgPath = req?.file?.path;
 
-  console.log(description, PostImgPath);
+  // console.log(description, PostImgPath);
   if (!(title || description)) {
     throw new apiError(404, "Title or description is required!");
   }
