@@ -8,8 +8,9 @@ const RecommendedUser = (userChannelDetails) => {
   const [isfollowed, setIsFollowed] = useState(false);
 
   const onFollow = (id) => {
-    setIsFollowed();
+    setIsFollowed(!isfollowed);
     console.log(id);
+    console.log(isfollowed);
   };
 
   return (

@@ -16,7 +16,7 @@ const ViewEducation = () => {
     <div className="ml-[10rem] mt-12 w-[78%]">
       <div className="ml-3 mt-2 flex flex-row justify-between pb-6">
         <div className="mt-1">
-          <NavLink to="/profile">
+          <NavLink to="/profile:username">
             <IconButton
               size="12"
               sx={{
