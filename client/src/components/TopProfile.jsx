@@ -55,6 +55,7 @@ const TopProfile = (userChannelDetails) => {
 
   useEffect(() => {
     setChannelData(userChannelData);
+    setBackground(userChannelData.coverImage);
     // Fetch countries from API
     fetch("https://countriesnow.space/api/v0.1/countries")
       .then((response) => response.json())
@@ -113,8 +114,8 @@ const TopProfile = (userChannelDetails) => {
           {background ? (
             <div className="flex flex-row z-0 relative">
               <img
-                src={userChannelData.avatar}
-                alt={userChannelData.avatar}
+                src={userChannelData.coverImage}
+                alt={userChannelData.coverImage}
                 className="rounded-t-3xl lg:w-[72rem] lg:h-[20rem] sm:w-full sm:h-20 md:h-20 md:w-full w-full h-[11rem]"
               ></img>
               <div className="z-10 ml-[94%] mt-[26%] absolute">
@@ -151,8 +152,7 @@ const TopProfile = (userChannelDetails) => {
           </h1>
           <p className="lg:ml-20 ml-4">{profile.bio}</p>
           <div className="flex item-center lg:ml-20 ml-4">
-            {userChannelData.district},{userChannelData.state},
-            {userChannelData.country}
+            {profile.district},{profile.state},{profile.country}
             <div className="bg-[#a3a3a3] h-1 w-1 rounded-full ml-2 mt-3"></div>
             <Button
               variant="plain"
