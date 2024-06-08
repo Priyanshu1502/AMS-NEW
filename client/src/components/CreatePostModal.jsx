@@ -37,9 +37,10 @@ const CreatePostModal = ({ setPost }) => {
   const [file, setFile] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [imgAfterCrop, setImageAfterCrop] = useState("");
-
+  const [text, setText] = useState("");
   const inputRef = React.createRef();
-  const [close, setClose] = useState();
+  const [close, setClose] = useState("");
+  const [emoji, setEmoji] = useState([]);
 
   const modalOpen = () => {
     if (cropDone == dataUrl) {
@@ -72,6 +73,7 @@ const CreatePostModal = ({ setPost }) => {
   formData.append("postImg", image);
 
   const handleUpload = () => {
+    closeModal();
     try {
       axios
         .post(
@@ -149,7 +151,8 @@ const CreatePostModal = ({ setPost }) => {
     const codeArray = [];
     sym.forEach((element) => codeArray.push("0x" + element));
     let emoji = String.fromCodePoint(...codeArray);
-    setText(description + emoji);
+    // console.log(emoji);
+    setEmoji(emoji);
   };
 
   const uploadImage = () => {

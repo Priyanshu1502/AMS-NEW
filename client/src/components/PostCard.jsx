@@ -113,11 +113,6 @@ const PostCard = () => {
                   {post.createdAt}
                 </p>
               </div>
-              <div className="w-full h-auto flex items-center gap-x-1">
-                <h2 className="text-black text-sm font-medium ">
-                  {post.description}
-                </h2>
-              </div>
             </div>
             <div className="post">
               <IconButton
@@ -130,6 +125,7 @@ const PostCard = () => {
               >
                 <MoreVertIcon />
               </IconButton>
+
               <Menu
                 id="long-menu"
                 open={open}
@@ -145,6 +141,11 @@ const PostCard = () => {
                 </MenuItem>
               </Menu>
             </div>
+          </div>
+          <div className="w-full h-auto pb-4 flex items-center gap-x-1">
+            <h2 className="text-black text-sm font-medium ">
+              {post.description}
+            </h2>
           </div>
           {/* feed img */}
           <div className="w-full lg:max-h-[75vh] md:max-h-[70vh] sm:max-h-[65vh] max-h-[50vh] lg:h-[70vh] md:h-[60vh] sm:h-[50vh] h-[50vh] lg:min-h-[65vh] md:min-h-[55vh] sm:min-h-[50vh] min-h-[45vh] border border-black rounded overflow-hidden mb-3">
