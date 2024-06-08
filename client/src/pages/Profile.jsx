@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     try {
       axios
-        .get(`/api/v1/users/accounts/channel/${username}`, {
+        .get(`/api/v1/users/user-info`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -28,6 +28,7 @@ const Profile = () => {
           navlink("/");
         })
         .then((data) => {
+          // console.log(data);
           setData(data);
         });
     } catch (err) {

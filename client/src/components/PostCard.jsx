@@ -21,6 +21,7 @@ const PostCard = () => {
   const [data, setData] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [like, setLike] = useState(0);
+  const [post_id, setPostId] = useState([]);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,6 +34,7 @@ const PostCard = () => {
   const onLike = () => {
     setIsLiked(!isLiked);
     setLike(like + (isLiked ? -1 : 1));
+    // setPostId(postId);
   };
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -64,12 +66,17 @@ const PostCard = () => {
           navlink("/");
         })
         .then((data) => {
+          // console.log(data);
           setData(data);
         });
+      // data.map((el) => setPostId(el._id));
+      // axios.post(`/api/v1/posts/toggle/p/${post_id}`).then((res) => {
+      //   console.log(res.data.data);
+      // });
     } catch (err) {
       return console.log(err);
     }
-  }, []);
+  }, [data.length]);
 
   const action = (
     <React.Fragment>
@@ -107,11 +114,11 @@ const PostCard = () => {
                 </div>
               </Link>
               <div className="flex items-center gap-x-2">
-                <p className="text-black text-sm font-medium">
-                  {post.username}
-                </p>
+                <p className="text-black text-sm font-bold">{post.username}</p>
                 <div className="w-1 h-1 bg-black rounded-full"></div>
-                <p className="text-black text-sm font-medium">{post.time}</p>
+                <p className="text-black text-sm font-medium">
+                  {post.createdAt}
+                </p>
               </div>
             </div>
             <div className="post">
@@ -125,6 +132,7 @@ const PostCard = () => {
               >
                 <MoreVertIcon />
               </IconButton>
+
               <Menu
                 id="long-menu"
                 open={open}
@@ -140,6 +148,11 @@ const PostCard = () => {
                 </MenuItem>
               </Menu>
             </div>
+          </div>
+          <div className="w-full h-auto pb-4 flex items-center gap-x-1">
+            <h2 className="text-black text-sm font-medium ">
+              {post.description}
+            </h2>
           </div>
           {/* feed img */}
           <div className="w-full lg:max-h-[75vh] md:max-h-[70vh] sm:max-h-[65vh] max-h-[50vh] lg:h-[70vh] md:h-[60vh] sm:h-[50vh] h-[50vh] lg:min-h-[65vh] md:min-h-[55vh] sm:min-h-[50vh] min-h-[45vh] border border-black rounded overflow-hidden mb-3">
@@ -220,14 +233,12 @@ const PostCard = () => {
             {like} likes
           </div>
           {/* captions section */}
-
           {/*captions with username*/}
           <div className="w-full h-auto flex items-center gap-x-1">
             <div className="w-full h-auto text-sm text-grey-200 font-thin">
-              <NavLink to="/" className="font-medium text-sm me-2">
+              {/* <NavLink to="/" className="font-medium text-sm me-2">
                 {post.username}
-              </NavLink>
-              {post.caption}
+              </NavLink> */}
             </div>
           </div>
           {/* comments count */}

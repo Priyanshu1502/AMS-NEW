@@ -34,39 +34,14 @@ const CreatePostModal = ({ setPost }) => {
   const [openPicker, setOpenPicker] = useState(false);
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
+  const [file, setFile] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [imgAfterCrop, setImageAfterCrop] = useState("");
-  const [text, setText] = useState(null);
+  const [text, setText] = useState("");
   const inputRef = React.createRef();
-  const [close, setClose] = useState();
+  const [close, setClose] = useState("");
+  const [emoji, setEmoji] = useState([]);
 
-  useEffect(() => {
-    try {
-      axios
-        .post(
-          "/api/v1/posts/",
-          {
-            postImg: image,
-            description: description,
-          },
-          { withCredentials: true }
-        ) // by using withCredentials cookies are added.
-        .then((res) => {
-          // console.log(res.data.data);
-          return res.data.data;
-        })
-        .catch((error) => {
-          // console.log(error);
-          // navlink(`/`);
-        })
-        .then((data) => {
-          // console.log(data);
-          // SetProfilePic(data);
-        });
-    } catch (err) {
-      return console.log(err);
-    }
-  }, []);
   const modalOpen = () => {
     if (cropDone == dataUrl) {
       setPost(true);
@@ -78,20 +53,57 @@ const CreatePostModal = ({ setPost }) => {
   };
 
   const upload = (e) => {
-    const file = e.target.files?.[0];
-    setImage(file);
+    // var reader = new FileReader();
+    const images = e.target.files?.[0];
+    setImage(images);
+    // reader.readAsDataURL(e.target.files[0]);
+    // reader.onload = () => {
+    //   console.log(reader.result);
+    //   setImage(reader.result);
+    // };
+    // reader.onerror = (error) => {
+    //   console.log(error);
+    // };
+    // setImage(images);
+    // setFile(URL.createObjectURL(image));
   };
-  // console.log(image);
-  // console.log(description);
 
   const formData = new FormData();
-  formData.append("text", description);
-  formData.append("image", image);
+  formData.append("description", description);
+  formData.append("postImg", image);
 
   const handleUpload = () => {
-    axios.post("", formData);
+    closeModal();
+    try {
+      axios
+        .post(
+          "/api/v1/posts/",
+          {
+            postImg: formData.get("postImg"),
+            description: formData.get("description"),
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          },
+          { withCredentials: true }
+        ) // by using withCredentials cookies are added.
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          // navlink(`/`);
+        })
+        .then((data) => {
+          alert("Post is Uploaded Successfully.");
+        });
+    } catch (err) {
+      return console.log(err);
+    }
   };
-
   // const cropDone = (imgCropped) => {
   //   const canvasEle = document.createElement("canvas");
   //   canvasEle.width = imgCropped.width;
@@ -138,7 +150,8 @@ const CreatePostModal = ({ setPost }) => {
     const codeArray = [];
     sym.forEach((element) => codeArray.push("0x" + element));
     let emoji = String.fromCodePoint(...codeArray);
-    setText(description + emoji);
+    // console.log(emoji);
+    setEmoji(emoji);
   };
 
   const uploadImage = () => {
@@ -251,7 +264,7 @@ const CreatePostModal = ({ setPost }) => {
               onClick={handleUpload}
               ModalClose
               variant="contained"
-              type="submit"
+              // type="submit"
               // onSubmit={closeModal}
               sx={{
                 marginTop: "1rem",

@@ -8,38 +8,34 @@ import EventIcon from "@mui/icons-material/Event";
 import CreatePostModal from "./CreatePostModal";
 
 const CreatePost = () => {
-  const [post, setPost] = useState(false);
-  const [description, setDescription] = useState([]);
-
   const postSetter = () => {
     setPost(!post);
   };
+  const [data, setData] = useState([]);
+  const [post, setPost] = useState(false);
 
-  // useEffect(() => {
-  //   try {
-  //     axios
-  //       .post(
-  //         "/api/v1/posts/",
-  //         { postImg: post, description },
-  //         { withCredentials: true }
-  //       ) // by using withCredentials cookies are added.
-  //       .then((res) => {
-  //         // console.log(res.data.data);
-  //         return res.data.data;
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //         navlink(`/`);
-  //       })
-  //       .then((data) => {
-  //         // console.log(username);
-  //         // return setUsername(data.username), setAvatar(data.avatar);
-  //         setCoverImage(data);
-  //       });
-  //   } catch (err) {
-  //     return console.log(err);
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      axios
+        .get(`/api/v1/users/user-info`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          // navlink("/");
+        })
+        .then((data) => {
+          // console.log(data);
+          setData(data);
+        });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
 
   return (
     <div className="bg-white lg:w-[85%] shadow-lg mt-4 rounded lg:pt-0 pt-2">
@@ -47,8 +43,8 @@ const CreatePost = () => {
         <div>
           <div className="flex flex-row mt-4 ml-6 mb-6 border-gray ">
             <img
-              src={profile.profileImg}
-              alt="profileImg"
+              src={data.avatar}
+              alt={data.username}
               className="w-12 h-12 rounded-full"
             ></img>
             <div className="ml-4">
