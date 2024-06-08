@@ -36,7 +36,7 @@ const CreatePostModal = ({ setPost }) => {
   const [description, setDescription] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [imgAfterCrop, setImageAfterCrop] = useState("");
-
+  const [text, setText] = useState(null);
   const inputRef = React.createRef();
   const [close, setClose] = useState();
 
@@ -88,9 +88,9 @@ const CreatePostModal = ({ setPost }) => {
   formData.append("text", description);
   formData.append("image", image);
 
-  // const handleUpload = () => {
-  //   axios.post("", formData);
-  // };
+  const handleUpload = () => {
+    axios.post("", formData);
+  };
 
   // const cropDone = (imgCropped) => {
   //   const canvasEle = document.createElement("canvas");
@@ -252,7 +252,7 @@ const CreatePostModal = ({ setPost }) => {
               ModalClose
               variant="contained"
               type="submit"
-              onSubmit={closeModal}
+              // onSubmit={closeModal}
               sx={{
                 marginTop: "1rem",
                 width: "10rem",
