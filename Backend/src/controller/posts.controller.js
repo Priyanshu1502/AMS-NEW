@@ -17,10 +17,28 @@ const getAllUsersPost = asyncHandler(async (req, res) => {
       },
     },
     {
+      $lookup: {
+        from: "likesdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "likes",
+      },
+    },
+    {
+      $lookup: {
+        from: "commentdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "comments",
+      },
+    },
+    {
       $addFields: {
         usernameDetails: "$usernameDetails",
         username: "$usernameDetails.username",
         avatar: "$usernameDetails.avatar",
+        likesCount: { $size: "$likes" },
+        commentsCount: { $size: "$comments" },
       },
     },
     {
@@ -32,6 +50,8 @@ const getAllUsersPost = asyncHandler(async (req, res) => {
         username: 1,
         avatar: 1,
         createdAt: 1,
+        likesCount: 1,
+        commentsCount: 1,
       },
     },
     {
@@ -75,7 +95,6 @@ const getAllPost = asyncHandler(async (req, res) => {
     },
     {
       $project: {
-        _id: 1,
         postImg: 1,
         description: 1,
         isPublished: 1,
