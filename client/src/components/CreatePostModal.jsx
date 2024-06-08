@@ -98,8 +98,7 @@ const CreatePostModal = ({ setPost }) => {
           // navlink(`/`);
         })
         .then((data) => {
-          console.log(data);
-          // SetProfilePic(data);
+          alert("Post is Uploaded Successfully.");
         });
     } catch (err) {
       return console.log(err);

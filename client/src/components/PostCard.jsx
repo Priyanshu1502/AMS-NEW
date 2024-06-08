@@ -21,6 +21,7 @@ const PostCard = () => {
   const [data, setData] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [like, setLike] = useState(0);
+  const [post_id, setPostId] = useState([]);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,6 +34,7 @@ const PostCard = () => {
   const onLike = () => {
     setIsLiked(!isLiked);
     setLike(like + (isLiked ? -1 : 1));
+    // setPostId(postId);
   };
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -64,12 +66,17 @@ const PostCard = () => {
           navlink("/");
         })
         .then((data) => {
+          // console.log(data);
           setData(data);
         });
+      // data.map((el) => setPostId(el._id));
+      // axios.post(`/api/v1/posts/toggle/p/${post_id}`).then((res) => {
+      //   console.log(res.data.data);
+      // });
     } catch (err) {
       return console.log(err);
     }
-  }, [data]);
+  }, [data.length]);
 
   const action = (
     <React.Fragment>
@@ -226,7 +233,6 @@ const PostCard = () => {
             {like} likes
           </div>
           {/* captions section */}
-
           {/*captions with username*/}
           <div className="w-full h-auto flex items-center gap-x-1">
             <div className="w-full h-auto text-sm text-grey-200 font-thin">

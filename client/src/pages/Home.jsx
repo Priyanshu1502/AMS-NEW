@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Home = () => {
   const userDetail = async () => await axios.get("/api/v1/users/user-info");
-  console.log(userDetail);
+  // console.log(userDetail);
 
   return (
     <div className="bg-[#e4e4e4] w-full h-auto flex items-start justify-between lg:gap-x-0 md:gap-x-0 sm:gap-x-8 gap-x-4 relative">
