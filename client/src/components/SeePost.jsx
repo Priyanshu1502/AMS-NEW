@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Activity from "../assets/Activity";
 import { Button, Divider } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
-const SeePost = (props) => {
+const SeePost = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    try {
+      axios
+        .get("/api/v1/posts/")
+        .then((res) => {
+          return res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          // navlink("/");
+        })
+        .then((data) => {
+          // console.log(data);
+          setData(data);
+        });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
+
   return (
     <div className=" lg:ml-52 mt-4 lg:mt-4 lg:mr-0 lg:mb-0 sm:mr-2 sm:ml-2 md:mt-4 sm:mt-4 ml-2 mr-2 z-0 bg-white lg:w-[100%] rounded-3xl lg:max-w-[72rem] sm:max-w-screen-sm">
       <div className="lg:ml-8 pt-6 ml-5 text-3xl">Activity</div>
@@ -22,17 +44,16 @@ const SeePost = (props) => {
           Create a Post
         </Button>
       </div>
-      {Activity.map((activity) => (
+      {data.slice(0, 1).map((activity) => (
         <div key={activity.id} className="">
+          {/* {console.log(activity)} */}
           <div className="lg:ml-8 ml-3">
             <NavLink to="#">
               <div className="flex flex-row">
-                <div className="font-bold pr-3">
-                  {props.userDetails.username}
-                </div>
+                <div className="font-bold pr-3">{activity.username}</div>
                 posted this
                 <div className="w-1 h-1 bg-black rounded-full m-3"></div>
-                <div>{activity.timeStamp}</div>
+                <div>{activity.createdAt}</div>
               </div>
               <div className="flex flex-row rounded-xl border-grey-300 border-2 w-[96%]">
                 <img
@@ -42,20 +63,20 @@ const SeePost = (props) => {
                 />
                 <div className="mt-1 ml-1">
                   {activity.postTitle}
-                  <div>{activity.caption}</div>
+                  <div>{activity.description}</div>
                 </div>
               </div>
             </NavLink>
             <div className="flex justify-between w-[95%] lg:ml-2 mt-2">
               <div className=" ">
-                <ThumbUpIcon fontSize="2" /> {activity.likes}
+                <ThumbUpIcon fontSize="2" /> {activity.likesCount}
               </div>
-              <div className="">{activity.comments} comments</div>
+              <div className="">{activity.commentsCount} comments</div>
             </div>
           </div>
         </div>
       ))}
-      <NavLink to="/profile/activity">
+      <NavLink to="/profile/activity" state={data}>
         <div className="border-t-2 mt-2 flex items-center justify-center">
           <Button
             variant="plain"

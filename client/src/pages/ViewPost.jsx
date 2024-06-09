@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Data from "../assets/ProfileData";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Avatar, Button, Divider, IconButton } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -10,8 +10,10 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
 
-const ViewEducation = () => {
+const ViewPost = () => {
   const [image, setImage] = useState("");
+  const { state } = useLocation();
+
   return (
     <div className="ml-[10rem] mt-12 w-[78%]">
       <div className="ml-3 mt-2 flex flex-row justify-between pb-6">
@@ -51,7 +53,7 @@ const ViewEducation = () => {
           </IconButton>
         </div>
       </div>
-      {Data.map((acti) => (
+      {state.map((acti) => (
         <div
           key={acti.id}
           className="flex flex-col justify-center items-center"
@@ -60,13 +62,12 @@ const ViewEducation = () => {
             <div className="mt-6 ml-6 mb-5 rounded-md shadow-lg w-[94%] bg-white">
               <div className="mt-5 ml-4 mb-2 flex flex-row ">
                 <Avatar
-                  alt={acti.name}
-                  src={acti.profileImg}
+                  src={acti.avatar || ""}
                   sx={{ height: "3rem", width: "3rem" }}
                 />
                 <div className="ml-2 flex flex-col">
-                  <h1 className="text-md">{acti.name}</h1>
-                  <p className="text-xs">{acti.bio}</p>
+                  <h1 className="text-md font-bold">{acti.username}</h1>
+                  <p className="text-xs">{acti.createdAt}</p>
                   <p>{acti.time}</p>
                 </div>
                 <div className="ml-[72%]">
@@ -77,18 +78,18 @@ const ViewEducation = () => {
               </div>
 
               <div className="ml-6 mt-4 mb-4">
-                <p className="mb-4 text-md">{acti.caption}</p>
+                <p className="mb-4 text-md">{acti.description}</p>
                 <div className="h-[72vh] w-[48vw]">
                   <img
-                    src={acti.backgroundImg}
+                    src={acti.postImg}
                     alt="post-image"
                     className="h-full w-full rounded-md object-cover"
                   ></img>
                 </div>
                 <div className="mt-2 ml-2 flex flex-row">
                   <ThumbUpIcon />
-                  <h1 className="ml-2">{acti.likes}</h1>
-                  <h1 className="ml-[80%]">{acti.comments}comments</h1>
+                  <h1 className="ml-2">{acti.likesCount}</h1>
+                  <h1 className="ml-[80%]">{acti.commentsCount}comments</h1>
                 </div>
               </div>
               <Divider sx={{ width: "94%", marginLeft: "1rem" }} />
@@ -118,4 +119,4 @@ const ViewEducation = () => {
   );
 };
 
-export default ViewEducation;
+export default ViewPost;

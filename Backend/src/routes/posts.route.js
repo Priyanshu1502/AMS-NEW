@@ -10,6 +10,7 @@ import {
 } from "../controller/posts.controller.js";
 import { UserAuthentication } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middlewares.js";
+import { healthcheck } from "../controller/healthcheck.controller.js";
 
 const router = Router();
 router.use(UserAuthentication); // Apply verifyJWT middleware to all routes in this file

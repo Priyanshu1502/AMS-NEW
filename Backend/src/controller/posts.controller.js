@@ -71,11 +71,28 @@ const getAllUsersPost = asyncHandler(async (req, res) => {
 
 const getAllPost = asyncHandler(async (req, res) => {
   const userId = req.user._id;
-
+  // console.log("working");
+  if (!userId) throw new apiError(404, "User Id is missing!");
   const userPosts = await PostDB.aggregate([
     {
       $match: {
         owner: new mongoose.Types.ObjectId(userId),
+      },
+    },
+    {
+      $lookup: {
+        from: "likesdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "likes",
+      },
+    },
+    {
+      $lookup: {
+        from: "commentdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "comments",
       },
     },
     {
@@ -91,6 +108,8 @@ const getAllPost = asyncHandler(async (req, res) => {
         usernameDetails: "$usernameDetails",
         username: "$usernameDetails.username",
         avatar: "$usernameDetails.avatar",
+        likesCount: { $size: "$likes" },
+        commentsCount: { $size: "$comments" },
       },
     },
     {
@@ -100,6 +119,14 @@ const getAllPost = asyncHandler(async (req, res) => {
         isPublished: 1,
         username: 1,
         avatar: 1,
+        createdAt: 1,
+        likesCount: 1,
+        commentsCount: 1,
+      },
+    },
+    {
+      $sort: {
+        createdAt: -1,
       },
     },
   ]);

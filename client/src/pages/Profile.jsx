@@ -45,7 +45,7 @@ const Profile = () => {
         <Achivement userDetails={data} />
       </div>
       <div className="bg-[#e3e3e3]">
-        <SeePost userDetails={data} />
+        <SeePost />
       </div>
       <div className="bg-[#e3e3e3]">
         <Skill />

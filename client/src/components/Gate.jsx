@@ -6,7 +6,7 @@ const Gate = ({ children }) => {
   const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
-    console.log(location);
+    // console.log(location);
     if (location.pathname === "/" || location.pathname === "/signup") {
       setShowNav(false);
     }
