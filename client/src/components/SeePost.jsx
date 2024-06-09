@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Activity from "../assets/Activity";
 import { Button, Divider } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import TimeAgo from "react-timeago";
 import frenchStrings from "react-timeago/lib/language-strings/es-short";
@@ -10,28 +10,37 @@ import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 
 const formatter = buildFormatter(frenchStrings);
 
-const SeePost = () => {
+const SeePost = (props) => {
+  const { username } = useParams();
+  // console.log(props.userDetails._id);
+  const [userId, setUserId] = useState(props.userDetails._id);
   const [data, setData] = useState([]);
+  const [postData, setPostData] = useState([]);
   useEffect(() => {
+    setUserId(props.userDetails._id);
     try {
       axios
-        .get("/api/v1/posts/")
+        .get(`/api/v1/users/accounts/channel/${username}`)
         .then((res) => {
-          return res.data.data;
+          // return res.data.data;
+          return axios.get(`/api/v1/posts/${res.data.data._id}`);
+        })
+        .then(async (data) => {
+          // console.log(data.data.data);
+          return setData(data.data.data);
         })
         .catch((err) => {
-          console.log(err);
+          return console.log(err);
           // navlink("/");
-        })
-        .then((data) => {
-          // console.log(data);
-          setData(data);
         });
+      // await axios.get(`/api/v1/posts/${data._id}`).then(async (res) => {
+      //   const pData = res.data.data;
+      //   return await setPostData(pData);
+      // });
     } catch (err) {
       return console.log(err);
     }
   }, []);
-
   return (
     <div className=" lg:ml-52 mt-4 lg:mt-4 lg:mr-0 lg:mb-0 sm:mr-2 sm:ml-2 md:mt-4 sm:mt-4 ml-2 mr-2 z-0 bg-white lg:w-[100%] rounded-3xl lg:max-w-[72rem] sm:max-w-screen-sm">
       <div className="lg:ml-8 pt-6 ml-5 text-3xl">Activity</div>
