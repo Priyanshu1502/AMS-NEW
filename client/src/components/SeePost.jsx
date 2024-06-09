@@ -4,6 +4,11 @@ import { Button, Divider } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import TimeAgo from "react-timeago";
+import frenchStrings from "react-timeago/lib/language-strings/es-short";
+import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
+
+const formatter = buildFormatter(frenchStrings);
 
 const SeePost = () => {
   const [data, setData] = useState([]);
@@ -53,7 +58,12 @@ const SeePost = () => {
                 <div className="font-bold pr-3">{activity.username}</div>
                 posted this
                 <div className="w-1 h-1 bg-black rounded-full m-3"></div>
-                <div>{activity.createdAt}</div>
+                <div>
+                  <TimeAgo
+                    date={`${activity.createdAt}Z`}
+                    formatter={formatter}
+                  />
+                </div>
               </div>
               <div className="flex flex-row rounded-xl border-grey-300 border-2 w-[96%]">
                 <img

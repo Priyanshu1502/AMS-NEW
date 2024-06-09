@@ -9,6 +9,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
+import TimeAgo from "react-timeago";
+import frenchStrings from "react-timeago/lib/language-strings/es-short";
+import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
+
+const formatter = buildFormatter(frenchStrings);
 
 const ViewPost = () => {
   const [image, setImage] = useState("");
@@ -67,8 +72,13 @@ const ViewPost = () => {
                 />
                 <div className="ml-2 flex flex-col">
                   <h1 className="text-md font-bold">{acti.username}</h1>
-                  <p className="text-xs">{acti.createdAt}</p>
-                  <p>{acti.time}</p>
+                  {/* <p className="text-xs">{acti.createdAt}</p> */}
+                  <p>
+                    <TimeAgo
+                      date={`${acti.createdAt}Z`}
+                      formatter={formatter}
+                    />
+                  </p>
                 </div>
                 <div className="ml-[72%]">
                   <IconButton aria-label="more">

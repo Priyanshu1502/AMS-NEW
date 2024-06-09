@@ -18,7 +18,7 @@ import axios from "axios";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const LeftSideBar = (userDetail) => {
+const LeftSideBar = () => {
   // const [selectedIndex, setSelectedIndex] = React.useState(1);
   const navlink = useNavigate();
   // const handleListItemClick = (event, index) => {
@@ -57,7 +57,7 @@ const LeftSideBar = (userDetail) => {
     } catch (err) {
       return console.log(err);
     }
-  }, [userDetail]);
+  }, []);
 
   return (
     <div className="flex flex-col bg-white rounded">
