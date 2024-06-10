@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import TimeAgo from "react-timeago";
+import frenchStrings from "react-timeago/lib/language-strings/es-short";
+import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,6 +18,8 @@ import Snackbar from "@mui/material/Snackbar";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
+
+const formatter = buildFormatter(frenchStrings);
 
 const PostCard = () => {
   const drawerBleeding = 56;
@@ -79,15 +84,28 @@ const PostCard = () => {
   // }, [data.length]);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        let data = await axios.get("api/v1/posts/all-posts");
-        console.log(data);
-      } catch (err) {
-        console.log(`Error from getting the api ${err}`);
-      }
-    };
-    getData();
+    try {
+      axios
+        .get("api/v1/posts/all-posts")
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          navlink("/");
+        })
+        .then((data) => {
+          // console.log(data);
+          setData(data);
+        });
+      // data.map((el) => setPostId(el._id));
+      // axios.post(`/api/v1/posts/toggle/p/${post_id}`).then((res) => {
+      //   console.log(res.data.data);
+      // });
+    } catch (err) {
+      return console.log(err);
+    }
   }, []);
 
   const action = (
@@ -111,10 +129,11 @@ const PostCard = () => {
       {data.map((post) => (
         <div key={post.id} className="w-full h-auto mb-6">
           {/* pp and username, time */}
+          {/* {console.log(post)} */}
           <div className="w-full h-auto flex items-center justify-between mb-2">
             <div className="flex items-center gap-x-2">
               <Link
-                to="/"
+                to={`/profile/${post.username}`}
                 className="flex items-center justify-center flex-col flex-shrink-0"
               >
                 <div className="w-10 h-10 rounded-full object-cover p-[2px] bg-gradient-to-r from-[#2ed68a] to-white">
@@ -129,7 +148,8 @@ const PostCard = () => {
                 <p className="text-black text-sm font-bold">{post.username}</p>
                 <div className="w-1 h-1 bg-black rounded-full"></div>
                 <p className="text-black text-sm font-medium">
-                  {post.createdAt}
+                  {/* {post.createdAt} */}
+                  <TimeAgo date={`${post.createdAt}Z`} formatter={formatter} />
                 </p>
               </div>
             </div>

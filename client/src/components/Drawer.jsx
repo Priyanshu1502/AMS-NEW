@@ -136,7 +136,7 @@ const Drawer = () => {
   return (
     <div>
       <button onClick={() => setDrawerOpen(true)}>
-        <ProfileAvatar />
+        <ProfileAvatar userDetails={data} />
       </button>
 
       <SwipeableDrawer

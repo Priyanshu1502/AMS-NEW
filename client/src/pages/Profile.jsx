@@ -9,33 +9,34 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Profile = () => {
-  const navlink = useNavigate();
-  const { username } = useParams();
+  // const navlink = useNavigate();
+  let { username } = useParams();
   // console.log(username);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([null]);
+
   useEffect(() => {
     try {
       axios
-        .get(`/api/v1/users/user-info`, {
+        .get(`/api/v1/users/accounts/channel/${username}`, {
           withCredentials: true,
         })
         .then((res) => {
           // console.log(res.data.data);
           return res.data.data;
         })
-        .catch((err) => {
-          console.log(err);
-          navlink("/");
-        })
         .then((data) => {
           // console.log(data);
-          setData(data);
+          const resData = data;
+          setData(resData);
+        })
+        .catch((err) => {
+          console.log(err);
+          // navlink("/");
         });
     } catch (err) {
       return console.log(err);
     }
-  }, []);
-
+  }, [username]);
   return (
     <div className="bg-[#e3e3e3] lg:w-full lg:flex lg:flex-col lg:gap-0 lg:max-h-screen md:w-full  md:gap-0 sm:w-full sm:flex-col sm:flex lg:pb-6 pb-6 md:pb-6 sm:pb-6 sm:gap-3">
       <div className="bg-[#e3e3e3]">

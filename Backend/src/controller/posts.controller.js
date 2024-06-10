@@ -17,10 +17,28 @@ const getAllUsersPost = asyncHandler(async (req, res) => {
       },
     },
     {
+      $lookup: {
+        from: "likesdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "likes",
+      },
+    },
+    {
+      $lookup: {
+        from: "commentdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "comments",
+      },
+    },
+    {
       $addFields: {
         usernameDetails: "$usernameDetails",
         username: "$usernameDetails.username",
         avatar: "$usernameDetails.avatar",
+        likesCount: { $size: "$likes" },
+        commentsCount: { $size: "$comments" },
       },
     },
     {
@@ -32,6 +50,8 @@ const getAllUsersPost = asyncHandler(async (req, res) => {
         username: 1,
         avatar: 1,
         createdAt: 1,
+        likesCount: 1,
+        commentsCount: 1,
       },
     },
     {
@@ -51,11 +71,28 @@ const getAllUsersPost = asyncHandler(async (req, res) => {
 
 const getAllPost = asyncHandler(async (req, res) => {
   const userId = req.user._id;
-
+  // console.log("working");
+  if (!userId) throw new apiError(404, "User Id is missing!");
   const userPosts = await PostDB.aggregate([
     {
       $match: {
         owner: new mongoose.Types.ObjectId(userId),
+      },
+    },
+    {
+      $lookup: {
+        from: "likesdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "likes",
+      },
+    },
+    {
+      $lookup: {
+        from: "commentdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "comments",
       },
     },
     {
@@ -71,16 +108,93 @@ const getAllPost = asyncHandler(async (req, res) => {
         usernameDetails: "$usernameDetails",
         username: "$usernameDetails.username",
         avatar: "$usernameDetails.avatar",
+        likesCount: { $size: "$likes" },
+        commentsCount: { $size: "$comments" },
       },
     },
     {
       $project: {
-        _id: 1,
         postImg: 1,
         description: 1,
         isPublished: 1,
         username: 1,
         avatar: 1,
+        createdAt: 1,
+        likesCount: 1,
+        commentsCount: 1,
+      },
+    },
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+  ]);
+
+  res
+    .status(200)
+    .json(
+      new apiResponse(200, "All user Posts fetched successfully.", userPosts)
+    );
+});
+const getPostByUserId = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  // console.log(userId);
+  if (!userId) throw new apiError(404, "User Id is missing!");
+  const userPosts = await PostDB.aggregate([
+    {
+      $match: {
+        owner: new mongoose.Types.ObjectId(userId),
+      },
+    },
+    {
+      $lookup: {
+        from: "likesdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "likes",
+      },
+    },
+    {
+      $lookup: {
+        from: "commentdbs",
+        localField: "_id",
+        foreignField: "post",
+        as: "comments",
+      },
+    },
+    {
+      $lookup: {
+        from: "userdbs",
+        localField: "owner",
+        foreignField: "_id",
+        as: "usernameDetails",
+      },
+    },
+    {
+      $addFields: {
+        usernameDetails: "$usernameDetails",
+        username: "$usernameDetails.username",
+        avatar: "$usernameDetails.avatar",
+        likesCount: { $size: "$likes" },
+        commentsCount: { $size: "$comments" },
+      },
+    },
+    {
+      $project: {
+        postImg: 1,
+        description: 1,
+        isPublished: 1,
+        username: 1,
+        avatar: 1,
+        createdAt: 1,
+        likesCount: 1,
+        commentsCount: 1,
+      },
+    },
+    {
+      $sort: {
+        createdAt: -1,
       },
     },
   ]);
@@ -230,6 +344,7 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
 export {
   getAllPost,
   getAllUsersPost,
+  getPostByUserId,
   publishAPost,
   getPostById,
   updatePost,

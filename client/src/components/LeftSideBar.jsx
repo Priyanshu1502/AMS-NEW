@@ -18,7 +18,7 @@ import axios from "axios";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const LeftSideBar = (userDetail) => {
+const LeftSideBar = () => {
   // const [selectedIndex, setSelectedIndex] = React.useState(1);
   const navlink = useNavigate();
   // const handleListItemClick = (event, index) => {
@@ -33,31 +33,31 @@ const LeftSideBar = (userDetail) => {
   const [coverImage, setCoverImage] = useState([]);
   const [bio, setBio] = useState([]);
 
-  // useEffect(() => {
-  //   try {
-  //     axios
-  //       .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
-  //       .then((res) => {
-  //         // console.log(res.data.data);
-  //         return res.data.data;
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //         navlink(`/`);
-  //       })
-  //       .then((data) => {
-  //         // console.log(username);
-  //         return (
-  //           setUsername(data.username),
-  //           setAvatar(data.avatar),
-  //           setCoverImage(data.coverImage)
-  //         );
-  //         // setCoverImage(data.coverImage)
-  //       });
-  //   } catch (err) {
-  //     return console.log(err);
-  //   }
-  // }, [userDetail]);
+  useEffect(() => {
+    try {
+      axios
+        .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
+        .then((res) => {
+          // console.log(res.data.data);
+          return res.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          navlink(`/`);
+        })
+        .then((data) => {
+          // console.log(username);
+          return (
+            setUsername(data.username),
+            setAvatar(data.avatar),
+            setCoverImage(data.coverImage)
+          );
+          // setCoverImage(data.coverImage)
+        });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col bg-white rounded">

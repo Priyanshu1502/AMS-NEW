@@ -32,28 +32,29 @@ function stringAvatar(name) {
 }
 
 const ProfileAvatar = (userDetails) => {
-  // console.log(userDetails.userDetail);
-  const [profilePic, SetProfilePic] = useState();
-  useEffect(() => {
-    try {
-      axios
-        .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
-        .then((res) => {
-          // console.log(res.data.data);
-          return res.data.data;
-        })
-        .catch((error) => {
-          console.log(error);
-          // navlink(`/`);
-        })
-        .then((data) => {
-          // console.log(data);
-          SetProfilePic(data.avatar);
-        });
-    } catch (err) {
-      return console.log(err);
-    }
-  }, []);
+  // console.log(userDetails.userDetails);
+  // const [profilePic, SetProfilePic] = useState();
+  // useEffect(() => {
+  //   try {
+  //     axios
+  //       .get("/api/v1/users/user-info", { withCredentials: true }) // by using withCredentials cookies are added.
+  //       .then((res) => {
+  //         // console.log(res.data.data);
+  //         return res.data.data;
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         // navlink(`/`);
+  //       })
+  //       .then((data) => {
+  //         // console.log(data);
+  //         SetProfilePic(data.avatar);
+  //       });
+
+  //   } catch (err) {
+  //     return console.log(err);
+  //   }
+  // }, []);
   return (
     <>
       {/* {profilePic ? (
@@ -64,7 +65,7 @@ const ProfileAvatar = (userDetails) => {
 
       {/* <img src={profilePic} alt="userpic.jpg" /> */}
 
-      <Avatar src={profilePic} alt="userpic.jpg" />
+      <Avatar src={userDetails.userDetails.avatar} alt="userpic.jpg" />
     </>
   );
 };
