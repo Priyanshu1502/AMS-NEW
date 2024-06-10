@@ -39,18 +39,18 @@ const CreatePostModal = ({ setPost }) => {
   const [imgAfterCrop, setImageAfterCrop] = useState("");
   const [text, setText] = useState("");
   const inputRef = React.createRef();
-  const [close, setClose] = useState("");
+  // const [close, setClose] = useState("");
   const [emoji, setEmoji] = useState([]);
 
-  const modalOpen = () => {
-    if (cropDone == dataUrl) {
-      setPost(true);
-    }
-  };
+  // const modalOpen = () => {
+  //   if (cropDone == dataUrl) {
+  //     setPost(true);
+  //   }
+  // };
 
-  const closeModal = () => {
-    setClose(setPost(false));
-  };
+  // const closeModal = () => {
+  //   setClose(setPost(false));
+  // };
 
   const upload = (e) => {
     // var reader = new FileReader();
@@ -73,7 +73,8 @@ const CreatePostModal = ({ setPost }) => {
   formData.append("postImg", image);
 
   const handleUpload = () => {
-    closeModal();
+    // closeModal();
+
     try {
       axios
         .post(

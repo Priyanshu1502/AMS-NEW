@@ -53,30 +53,42 @@ const PostCard = () => {
 
   const navlink = useNavigate();
 
+  // useEffect(() => {
+  //   try {
+  //     axios
+  //       .get("api/v1/posts/all-posts")
+  //       .then((res) => {
+  //         // console.log(res?.data.data);
+  //         return res.data.data;
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         navlink("/");
+  //       })
+  //       .then((data) => {
+  //         // console.log(data);
+  //         setData(data);
+  //       });
+  //     // data.map((el) => setPostId(el._id));
+  //     // axios.post(`/api/v1/posts/toggle/p/${post_id}`).then((res) => {
+  //     //   console.log(res.data.data);
+  //     // });
+  //   } catch (err) {
+  //     return console.log(err);
+  //   }
+  // }, [data.length]);
+
   useEffect(() => {
-    try {
-      axios
-        .get("api/v1/posts/all-posts")
-        .then((res) => {
-          // console.log(res.data.data);
-          return res.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-          navlink("/");
-        })
-        .then((data) => {
-          // console.log(data);
-          setData(data);
-        });
-      // data.map((el) => setPostId(el._id));
-      // axios.post(`/api/v1/posts/toggle/p/${post_id}`).then((res) => {
-      //   console.log(res.data.data);
-      // });
-    } catch (err) {
-      return console.log(err);
-    }
-  }, [data.length]);
+    const getData = async () => {
+      try {
+        let data = await axios.get("api/v1/posts/all-posts");
+        console.log(data);
+      } catch (err) {
+        console.log(`Error from getting the api ${err}`);
+      }
+    };
+    getData();
+  }, []);
 
   const action = (
     <React.Fragment>
@@ -168,11 +180,11 @@ const PostCard = () => {
               {/* like button */}
               <div>
                 {isLiked ? (
-                  <FavoriteIcon sx={{ cursor: "pointer" }} onClick={onLike} />
+                  <FavoriteIcon sx={{ cursor: "pointer" }} onClick={onLike()} />
                 ) : (
                   <FavoriteBorderIcon
                     sx={{ cursor: "pointer" }}
-                    onClick={onLike}
+                    onClick={onLike()}
                   />
                 )}
               </div>

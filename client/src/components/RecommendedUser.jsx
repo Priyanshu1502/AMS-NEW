@@ -7,10 +7,14 @@ const RecommendedUser = (userChannelDetails) => {
   const userChannelData = userChannelDetails.userDetails;
   const [isfollowed, setIsFollowed] = useState(false);
 
-  const onFollow = (id) => {
-    setIsFollowed(!isfollowed);
+  // const onFollow = (id) => {
+  //   setIsFollowed(!isfollowed);
+  //   console.log(id);
+  //   console.log(isfollowed);
+  // };
+
+  const handleFollow = (id) => {
     console.log(id);
-    console.log(isfollowed);
   };
 
   return (
@@ -18,6 +22,7 @@ const RecommendedUser = (userChannelDetails) => {
       <div className="border-b p-2">You Might also Know</div>
       {Data.map((friend, id) => (
         <div key={friend.id}>
+          {console.log(users, friend)}
           <div className="grid grid-flow-col grid-cols-3 p-2">
             <div className="borded-b rounded borded-black">
               <Avatar src={friend.profileImg} />
@@ -35,7 +40,8 @@ const RecommendedUser = (userChannelDetails) => {
                 <Button
                   variant="contained"
                   sx={{ width: "0.4rem", fontSize: "11px" }}
-                  onClick={() => onFollow(friend.id)}
+                  // onClick={() => onFollow(friend.id)}
+                  onClick={() => handleFollow(friend.id)}
                 >
                   Follow
                 </Button>
