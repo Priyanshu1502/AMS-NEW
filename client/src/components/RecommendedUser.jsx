@@ -1,9 +1,15 @@
 import { Avatar, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Data from "../assets/Data";
 import { useState } from "react";
 
 const RecommendedUser = () => {
+  // if (data.isFollowed) {
+  //   alert("true");
+  // } else {
+  //   alert("false");
+  // }
+
   const [isfollowed, setIsFollowed] = useState(false);
 
   const onFollow = (id) => {

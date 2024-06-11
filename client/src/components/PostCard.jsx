@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import TimeAgo from "react-timeago";
-import frenchStrings from "react-timeago/lib/language-strings/es-short";
+import frenchStrings from "react-timeago/lib/language-strings/en";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";

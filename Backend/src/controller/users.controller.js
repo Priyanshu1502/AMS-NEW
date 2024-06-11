@@ -420,12 +420,10 @@ const getUserChannelDetails = asyncHandler(async (req, res) => {
     );
 });
 
-const getUserDetailsByUsername = asyncHandler(async (req, res) => {
-  const username = req.params;
-
-  const user = await UserDB.findOne({ username }).select(
-    "-password -refreshToken"
-  );
+const getUserDetailsByUserId = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  // console.log(userId);
+  const user = await UserDB.findById(userId).select("-password -refreshToken");
 
   if (!user) {
     throw new apiError(404, "Invalid Username!");
@@ -446,5 +444,5 @@ export {
   UpdateUserDetails,
   DeleteUserAccount,
   UpdateUserAvatar,
-  getUserDetailsByUsername,
+  getUserDetailsByUserId,
 };
