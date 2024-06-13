@@ -3,6 +3,7 @@ import { apiError } from "../utils/apiError.js";
 import apiResponse from "../utils/apiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { FollowingDB } from "../model/followers.model.js";
+import mongoose from "mongoose";
 
 const toggleFollowers = asyncHandler(async (req, res) => {
   const { followingId } = req.params;
@@ -37,11 +38,11 @@ const toggleFollowers = asyncHandler(async (req, res) => {
 // controller to return Followed and following list of a User
 const getUserFollowing = asyncHandler(async (req, res) => {
   const { followingId } = req.params;
-
+  // console.log(followingId);
   const followers = await UserDB.aggregate([
     {
       $match: {
-        _id: followingId,
+        _id: new mongoose.Types.ObjectId(followingId),
       },
     },
     {
@@ -57,21 +58,25 @@ const getUserFollowing = asyncHandler(async (req, res) => {
         from: "followingdbs",
         localField: "_id",
         foreignField: "followerId",
-        as: "followedBy",
+        as: "followedTo",
       },
     },
     {
       $addFields: {
+        Followers: "$followers",
+        FollowedTo: "$followedTo",
         followingCount: {
           $size: "$followers",
         },
         followedCount: {
-          $size: "$followedBy",
+          $size: "$followedTo",
         },
       },
     },
     {
       $project: {
+        FollowedTo: 1,
+        Followers: 1,
         followingCount: 1,
         followedCount: 1,
       },

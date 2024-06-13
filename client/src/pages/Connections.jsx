@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FriendCard from "../components/FriendCard";
 import SearchFriend from "../components/SearchFriend";
 import SearchResults from "../components/SearchResults";

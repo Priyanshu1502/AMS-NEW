@@ -11,7 +11,7 @@ import {
   userLogIn,
   userLogOut,
   userRegisteration,
-  getUserDetailsByUsername,
+  getUserDetailsByUserId,
 } from "../controller/users.controller.js";
 import { UserAuthentication } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middlewares.js";
@@ -47,7 +47,7 @@ router
   .get(UserAuthentication, getUserChannelDetails);
 
 router
-  .route("/accounts/profile/:username")
-  .get(UserAuthentication, getUserDetailsByUsername);
+  .route("/accounts/profile/:userId")
+  .get(UserAuthentication, getUserDetailsByUserId);
 
 export default router;

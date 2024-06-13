@@ -5,7 +5,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import TimeAgo from "react-timeago";
-import frenchStrings from "react-timeago/lib/language-strings/es-short";
+import frenchStrings from "react-timeago/lib/language-strings/en";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 
 const formatter = buildFormatter(frenchStrings);
