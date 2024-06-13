@@ -16,6 +16,7 @@ import ViewEducation from "./pages/ViewEducation";
 import ViewPost from "./pages/ViewPost";
 import ViewExperience from "./pages/ViewExperience";
 import Event from "./pages/Event";
+import Comment from "./components/Comment";
 // import Footer from "./components/Footer";
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/comments" element={<Comment />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/profile/skill" element={<ViewSkills />} />
         <Route path="/profile/education" element={<ViewEducation />} />

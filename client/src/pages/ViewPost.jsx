@@ -93,7 +93,7 @@ const ViewPost = () => {
                   <img
                     src={acti.postImg}
                     alt="post-image"
-                    className="h-full w-full rounded-md object-cover"
+                    className="h-full w-full rounded-md object-contain"
                   ></img>
                 </div>
                 <div className="mt-2 ml-2 flex flex-row">

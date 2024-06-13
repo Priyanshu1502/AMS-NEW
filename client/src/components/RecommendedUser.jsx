@@ -21,7 +21,7 @@ const RecommendedUser = () => {
       <div className="border-b p-2">You Might also Know</div>
       {Data.map((friend, id) => (
         <div key={friend.id}>
-          {console.log(users, friend)}
+          {/* {console.log(friend)} */}
           <div className="grid grid-flow-col grid-cols-3 p-2">
             <div className="borded-b rounded borded-black">
               <Avatar src={friend.profileImg} />
